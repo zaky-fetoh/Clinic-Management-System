@@ -43,3 +43,4 @@ inDepartmentSchema.pre("save",async function(next){
     next();
 });
 
+module.exports = mongoose.model("in_department_emp", inDepartmentSchema);

@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 const clinic_model = require("./clinic");
 const joi = require("joi");
 
+const utils =require("../utils");
+
 departmentSchema = mongoose.Schema({
   _id: {
     type: mongoose.Schema.Types.ObjectId,
@@ -27,15 +29,8 @@ const joiSchema = joi.object({
 departmentSchema.pre("save", async function (next) {
   const { error } = joiSchema.validate(this._doc);
   if (error) throw error;
-  const clinic = await clinic_model.findOne(
-    {
-      _id: this.clinic_id,
-    },
-    {
-      projection: { _id: 1 },
-    }
-  );
-  if (!clinic) throw new Error("This Clinic Does not exist");
+  if (!(await utils.checkifRefExist(clinic_model,this.clinic_id))) 
+        throw new Error("This Clinic Does not exist");
   next();
 });
 

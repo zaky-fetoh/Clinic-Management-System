@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const indeptModel = require("./indepartment_emp");
+const utils = require("../utils");
 
 const scheduleSchema = mongoose.Schema({
   _id: {
@@ -25,13 +26,7 @@ const scheduleSchema = mongoose.Schema({
   },
 });
 scheduleSchema.pre("save", async function (next) {
-  const idp = await indeptModel.findOne(
-    {
-      _id: this.in_department_id,
-    },
-    { projection: { _id: 1 } }
-  );
-  if (!idp)
+  if (!(await utils.checkifRefExist(indeptModel, this.in_department_id)))
     throw new Error(
       "This position is Not Rejestered at indepartment Collection"
     );

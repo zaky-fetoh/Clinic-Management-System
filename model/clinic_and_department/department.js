@@ -31,7 +31,6 @@ departmentSchema.pre("save", async function(next){
         _id: this.clinic_id},{
             projection:{_id:1},
         })
-    console.log(clinic)
     if(!clinic) throw new Error("This Clinic Does not exist");
     next();
 });

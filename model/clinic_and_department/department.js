@@ -28,7 +28,10 @@ departmentSchema.pre("save", async function(next){
     const {error}= joiSchema.validate(this._doc)
     if(error) throw error;
     const clinic = await clinic_model.findOne({
-        _id: this.clinic_id})
+        _id: this.clinic_id},{
+            projection:{_id:1},
+        })
+    console.log(clinic)
     if(!clinic) throw new Error("This Clinic Does not exist");
     next();
 });

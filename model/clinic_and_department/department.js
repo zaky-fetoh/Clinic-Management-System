@@ -24,12 +24,12 @@ const joiSchema =joi.object({
     department_name: joi.string().min(3).max(255).required(),
 });
 
-departmentSchema.pre("save", async function(){
+departmentSchema.pre("save", async function(next){
     const {error}= joiSchema.validate(this._doc)
     if(error) throw error;
     const clinic = await clinic_model.findOne({
         _id: this.clinic_id})
-    if(clinic) throw new Error("This Clinic Does not exist");
+    if(!clinic) throw new Error("This Clinic Does not exist");
     next();
 });
 

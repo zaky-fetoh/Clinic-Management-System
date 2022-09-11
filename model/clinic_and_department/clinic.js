@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const joi = require("joi");
 
+
 const clinicSchema = mongoose.Schema({
     _id: {
         type: mongoose.Schema.Types.ObjectId,
@@ -22,17 +23,18 @@ const clinicSchema = mongoose.Schema({
 })
 
 const joiSchema = joi.object({
-    clinic_name: joi.String().min(2).max(30).required(),
-    address: joi.String().min(2).max(255).required(),
-    details: joi.String()
+    clinic_name: joi.string().min(2).max(30).required(),
+    address: joi.string().min(2).max(255).required(),
+    details: joi.string(),
+    _id: joi.any(),
 })
 
 clinicSchema.pre("save", function(next){
-    const {error, value} = joiSchema.validate(this)
+    const {error, value} = joiSchema.validate(this._doc)
     if(error){
-        console.log("Invalide Input");
+        console.error("Invalide Input");
         throw error ;
-    }else next()
+    }else next();
 }); 
 
 module.exports = mongoose.model("clinic", clinicSchema); 

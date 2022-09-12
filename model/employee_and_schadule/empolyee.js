@@ -21,7 +21,7 @@ const employeeSchema = mongoose.Schema({
     unique: true,
   },
   email: {
-    type: string,
+    type: String,
     default: "NONE",
     unique: true,
   },
@@ -30,11 +30,11 @@ const employeeSchema = mongoose.Schema({
     required: true,
   },
   phone: {
-    type: string,
+    type: String,
     default: "NONE",
   },
   mobile: {
-    type: string,
+    type: String,
     default: "NONE",
   },
   is_active: {
@@ -57,8 +57,10 @@ const joiSchema = joi.object({
 
 employeeSchema.pre("save", async function (next) {
   const { error } = joiSchema.validate(this._doc);
-  if (!error) throw error;
+  if (error) throw error;
+  console.log(this.password);
   this.password = await bcrypt.hash(this.password, 12);
+  console.log(this.password);
   next();
 });
 

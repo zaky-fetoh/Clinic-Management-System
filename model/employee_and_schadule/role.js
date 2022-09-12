@@ -8,6 +8,7 @@ const roleSchema = mongoose.Schema({
   role_name: {
     type: String,
     required: true,
+    unique:true,
     min:3,
   },
 });

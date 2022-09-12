@@ -29,7 +29,7 @@ const joiSchema = joi.object({
 });
 
 clinicSchema.pre("save", function (next) {
-  const { error, value } = joiSchema.validate(this._doc);
+  const { error } = joiSchema.validate(this._doc);
   if (error) {
     console.error("Invalide Input");
     throw error;

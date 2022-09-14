@@ -4,5 +4,8 @@ const clinicLogic = require("../controller/clinic");
 
 module.exports = express
   .Router()
-  .get("/clinic", clinicLogic.getAllClinics)
-  .post("/clinic", clinicLogic.addClinic);
+  .post("/",clinicLogic.addClinic)
+  .get("/",clinicLogic.getAllClinics)
+  .get("/:clinicId", clinicLogic.getClinic)
+  .delete("/:clinicId", clinicLogic.deleteClinic)
+  .put("/:clinicId", clinicLogic.updateClinic);

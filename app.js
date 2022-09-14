@@ -17,7 +17,7 @@ async function run() {
     .use(morgan())
     .use(express.json())
     .use(express.urlencoded())
-    .use("/", clinicRoute)
+    .use("/clinic", clinicRoute)
     .listen(process.env.PORT || 3000, () => {
       console.log("Server is listening");
     });

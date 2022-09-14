@@ -44,10 +44,10 @@ exports.getAllClinics = async function (req, res, next) {
 };
 
 //  /clinic/clinicId
-exprots.getClinic = async function (req, res, next) {
-  const clinicId = req.param.clinicId;
+exports.getClinic = async function (req, res, next) {
+  const clinicId = req.params.clinicId;
   try {
-    const clinicFound = await clinicModel.find(
+    const clinicFound = await clinicModel.findOne(
       {
         _id: clinicId,
       },
@@ -67,7 +67,7 @@ exprots.getClinic = async function (req, res, next) {
 
 //  /clinic/clinicId
 exports.deleteClinic = async function (req, res, next) {
-  const clinicId = req.param.clinicId;
+  const clinicId = req.params.clinicId;
   try {
     const result = await clinicModel.deleteOne({
       _id: clinicId,
@@ -85,7 +85,26 @@ exports.deleteClinic = async function (req, res, next) {
 };
 
 //  /clinic/clinicId
-exprots.updateClinic = async function (req, res, next) {
-  const clinicId = req.param.clinicId;
-
+exports.updateClinic = async function (req, res, next) {
+  const clinicId = req.params.clinicId;
+  const uclinic = req.body;
+  try{
+    const clinic = await clinicModel.findOne({
+        _id: clinicId,
+    }, {__v:0});
+    for(const att in clinic._doc){
+        if(att !== "_id" && uclinic[att]) clinic[att] = uclinic[att]; 
+    }
+    await clinic.save();
+    res.status(200).json({
+        ok: true, 
+        message: "clinic is upated successFUlly",
+        clinic,
+    })
+  }catch(e){
+    res.status(500).json({
+        ok:false, 
+        message: e.message,
+    });
+  }
 };

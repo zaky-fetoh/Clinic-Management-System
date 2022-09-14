@@ -6,7 +6,7 @@ exports.getDepart = async function (req, res, next) {
   try {
     const dept = await deptModel.findOne({
       _id: deptId,
-    });
+    },{__v:0});
     res.status(200).json({
       ok: true,
       message: `the department with Id${deptId}`,
@@ -14,8 +14,8 @@ exports.getDepart = async function (req, res, next) {
     });
   } catch (e) {
     res.status(500).json({
-      ok: false,
-      message: e.message,
+        ok: false,
+        message: e.message,
     });
   }
 };

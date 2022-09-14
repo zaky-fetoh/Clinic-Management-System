@@ -79,16 +79,18 @@ exports.getClinicWithItsDepts = async function (req, res, next) {
 
 async function countDeptsofClinic(filter = {}) {
   const pipeline = [
+    { $match: filter },
     {
-      $match: filter,
       $lookup: {
         from: "department",
-        localField: _id,
-        foreignField: clinicId,
+        localField: "_id",
+        foreignField: "clinic_id",
         as: "total_department_count",
-        pipeline: {
-          $count: "count",
-        },
+        pipeline: [
+          {
+            $count: "count",
+          },
+        ],
       },
     },
   ];
@@ -98,7 +100,7 @@ async function countDeptsofClinic(filter = {}) {
 //  /clinic/department/number
 exports.getTotalCountOfDeptForEachClinic = async function (req, res, next) {
   try {
-    const data = countDeptsofClinic();
+    const data = await countDeptsofClinic();
     res.status(200).json({
       ok: true,
       message: "totalNumber ofDepartments For each clinic",
@@ -112,10 +114,11 @@ exports.getTotalCountOfDeptForEachClinic = async function (req, res, next) {
   }
 };
 
+//  /:clinicId/department/number
 exports.getTotalCountOfDeptAClinic = async function (req, res, next) {
   const clinicId = req.params.clinicId;
   try {
-    const data = countDeptsofClinic({
+    const data = await countDeptsofClinic({
       _id: clinicId,
     });
     res.status(200).json({

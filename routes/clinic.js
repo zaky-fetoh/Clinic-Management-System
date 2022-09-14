@@ -10,10 +10,12 @@ module.exports = express
   .get("/number", clinicLogic.ClinicCount)
   .get("/department", clnDeptLogic.getClinicWithItsDepts)
   .get("/department/number", clnDeptLogic.getTotalCountOfDeptForEachClinic)
+
   .get("/:clinicId", clinicLogic.getClinic)
   .delete("/:clinicId", clinicLogic.deleteClinic)
   .put("/:clinicId", clinicLogic.updateClinic)
 
   .get("/:clinicId/department", clnDeptLogic.getAllDeptForClinic)
   .post("/:clinicId/department", clnDeptLogic.addDeptFromClinic)
-  .get("/:clinicId/department/number",clnDeptLogic.getTotalCountOfDeptAClinic)
+  // the Following line has an issue
+  .get("/:clinicId/department/number", clnDeptLogic.getTotalCountOfDeptAClinic);

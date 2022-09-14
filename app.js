@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 const express = require("express");
 const morgan = require("morgan");
 require("dotenv").config();
+mongoose.pluralize(null);
+
 
 const clinicRoute = require("./routes/clinic");
 const deptRoute = require("./routes/department");

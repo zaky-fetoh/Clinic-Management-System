@@ -45,25 +45,88 @@ exports.getAllDeptForClinic = async function (req, res, next) {
 };
 
 exports.getClinicWithItsDepts = async function (req, res, next) {
-    const pipline = [{
-        $lookup:{
-            from:"department", 
-            localField:"_id", 
-            foreignField:"clinic_id",
-            as:"departments",
-        }
-    }];
-    try{ 
-    const data = await clinicModel.aggregate(pipline)
+  const pipeline = [
+    {
+      $lookup: {
+        from: "department",
+        localField: "_id",
+        foreignField: "clinic_id",
+        as: "departments",
+      },
+    },
+    {
+      $project: {
+        __v: 0,
+        "departments.__v": 0,
+        "departments.clinic_id": 0,
+      },
+    },
+  ];
+  try {
+    const data = await clinicModel.aggregate(pipeline);
     res.status(200).json({
-        ok:true, 
-        message: "clinics with the corresponding departments",
-        data,
-    })
-    }catch(e){
-        res.status(500).json({
-            ok: false,
-            message: e.message,
-          });
-    }
+      ok: true,
+      message: "clinics with the corresponding departments",
+      data,
+    });
+  } catch (e) {
+    res.status(500).json({
+      ok: false,
+      message: e.message,
+    });
+  }
+};
+
+async function countDeptsofClinic(filter = {}) {
+  const pipeline = [
+    {
+      $match: filter,
+      $lookup: {
+        from: "department",
+        localField: _id,
+        foreignField: clinicId,
+        as: "total_department_count",
+        pipeline: {
+          $count: "count",
+        },
+      },
+    },
+  ];
+  return await clinicModel.aggregate(pipeline);
+}
+
+//  /clinic/department/number
+exports.getTotalCountOfDeptForEachClinic = async function (req, res, next) {
+  try {
+    const data = countDeptsofClinic();
+    res.status(200).json({
+      ok: true,
+      message: "totalNumber ofDepartments For each clinic",
+      data,
+    });
+  } catch (e) {
+    res.status(500).json({
+      ok: false,
+      message: e.message,
+    });
+  }
+};
+
+exports.getTotalCountOfDeptAClinic = async function (req, res, next) {
+  const clinicId = req.params.clinicId;
+  try {
+    const data = countDeptsofClinic({
+      _id: clinicId,
+    });
+    res.status(200).json({
+      ok: true,
+      message: "total Number ofDepartments For the clinic",
+      data,
+    });
+  } catch (e) {
+    res.status(500).json({
+      ok: false,
+      message: e.message,
+    });
+  }
 };

@@ -88,23 +88,47 @@ exports.deleteClinic = async function (req, res, next) {
 exports.updateClinic = async function (req, res, next) {
   const clinicId = req.params.clinicId;
   const uclinic = req.body;
-  try{
-    const clinic = await clinicModel.findOne({
+  try {
+    const clinic = await clinicModel.findOne(
+      {
         _id: clinicId,
-    }, {__v:0});
-    for(const att in clinic._doc){
-        if(att !== "_id" && uclinic[att]) clinic[att] = uclinic[att]; 
+      },
+      { __v: 0 }
+    );
+    for (const att in clinic._doc) {
+      if (att !== "_id" && uclinic[att]) clinic[att] = uclinic[att];
     }
     await clinic.save();
     res.status(200).json({
-        ok: true, 
-        message: "clinic is upated successFUlly",
-        clinic,
-    })
-  }catch(e){
+      ok: true,
+      message: "clinic is upated successFUlly",
+      clinic,
+    });
+  } catch (e) {
     res.status(500).json({
-        ok:false, 
-        message: e.message,
+      ok: false,
+      message: e.message,
+    });
+  }
+};
+
+exports.ClinicCount = async function (req, res, next) {
+  const pipeline = [
+    {
+      $count: "clinic_number",
+    },
+  ];
+  try {
+    const data = await clinicModel.aggregate(pipeline);
+    res.status(200).json({
+      ok: true,
+      message: "clinic count",
+      data,
+    });
+  } catch (e) {
+    res.status(500).json({
+      ok: false,
+      message: e.message,
     });
   }
 };

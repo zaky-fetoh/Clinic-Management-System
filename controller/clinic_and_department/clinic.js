@@ -1,4 +1,4 @@
-const clinicModel = require("../model/clinic_and_department/clinic");
+const clinicModel = require("../../model/clinic_and_department/clinic");
 
 exports.addClinic = async function (req, res, next) {
   const clinicDoc = req.body;

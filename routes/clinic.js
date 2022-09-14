@@ -1,6 +1,6 @@
 const express = require("express");
 
-const clinicLogic = require("../controller/clinic");
+const clinicLogic = require("../controller/clinic_and_department/clinic");
 
 module.exports = express
   .Router()

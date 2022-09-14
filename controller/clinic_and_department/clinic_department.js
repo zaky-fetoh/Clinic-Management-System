@@ -27,7 +27,7 @@ exports.getAllDeptForClinic = async function(req, res, next){
     try{
         const depts = await deptModel.find({
             clinic_id : clinicId,
-        });
+        }, {__v:0});
         res.status(200).json({
             ok: true, 
             message:"departments Rejesteredfor that clinic",

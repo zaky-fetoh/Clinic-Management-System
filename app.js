@@ -4,6 +4,8 @@ const morgan = require("morgan");
 require("dotenv").config();
 
 const clinicRoute = require("./routes/clinic");
+const deptRoute = require("./routes/department");
+
 
 async function run() {
     try {
@@ -18,6 +20,8 @@ async function run() {
     .use(express.json())
     .use(express.urlencoded())
     .use("/clinic", clinicRoute)
+    .use("/department",deptRoute)
+
     .listen(process.env.PORT || 3000, () => {
       console.log("Server is listening");
     });

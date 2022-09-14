@@ -21,7 +21,7 @@ exports.addDeptFromClinic = async function (req, res, next) {
     }
 };
 
-//  /clinic/clinicId/department     GET
+//  /clinic/:clinicId/department     GET
 exports.getAllDeptForClinic = async function(req, res, next){
     const clinicId = req.params.clinicId;
     try{
@@ -40,6 +40,5 @@ exports.getAllDeptForClinic = async function(req, res, next){
         })
     }
 }; 
-
 
 

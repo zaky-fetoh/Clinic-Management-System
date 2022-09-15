@@ -2,6 +2,13 @@ const deptModel = require("../../model/clinic_and_department/department");
 
 // /department/:deptId
 exports.getDepart = async function (req, res, next) {
+    /**
+   * Quary aparticular department with a secific id of deptId
+   * ROUTE: /department/:deptId
+   * METHOD: HTTP GET
+   * INPUT: deptId specified at the URl
+   * RETURN: department docment of specified ID
+   */
   const deptId = req.params.deptId;
   try {
     const dept = await deptModel.findOne({
@@ -22,6 +29,13 @@ exports.getDepart = async function (req, res, next) {
 
 // /department/:deptId
 exports.updateDept = async function (req, res, next) {
+      /**
+   * update aparticular department with a secific id of deptId
+   * ROUTE: /department/:deptId
+   * METHOD: HTTP PUT
+   * INPUT: deptId specified at the URl
+   * RETURN: updateddepartment docment of specified ID
+   */
   const deptId = req.params.deptId;
   const udept = req.body;
   try{ 
@@ -47,6 +61,13 @@ exports.updateDept = async function (req, res, next) {
 
 // /department/:deptId
 exports.deleteDept = async function(req, res, next){
+  /**
+   * delete aparticular department with a secific id of deptId
+   * ROUTE: /department/:deptId
+   * METHOD: HTTP DELETE
+   * INPUT: deptId specified at the URl
+   * RETURN: number of deleted Documents
+   */
     const deptId = req.params.deptId;
     try{
         const result = await deptModel.deleteOne({_id: deptId,})

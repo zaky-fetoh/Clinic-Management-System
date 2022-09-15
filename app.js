@@ -7,10 +7,11 @@ mongoose.pluralize(null);
 
 const clinicRoute = require("./routes/clinic");
 const deptRoute = require("./routes/department");
+const empRoute = require("./routes/employee");
 
 
 async function run() {
-    try {
+  try {
     await mongoose.connect(process.env.URI);
     console.log("MONGODB is connected");
   } catch (e) {
@@ -22,11 +23,12 @@ async function run() {
     .use(express.json())
     .use(express.urlencoded())
     .use("/clinic", clinicRoute)
-    .use("/department",deptRoute)
+    .use("/department", deptRoute)
+    .use("/employee", empRoute)
 
     .listen(process.env.PORT || 3000, () => {
       console.log("Server is listening");
     });
 
-};run()
+}; run()
 

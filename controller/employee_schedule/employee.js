@@ -1,4 +1,3 @@
-const { castObject } = require("../../model/employee_and_schadule/empolyee");
 const employeeModel = require("../../model/employee_and_schadule/empolyee");
 /**
  * CRUD operation for the Empolyee collection
@@ -108,12 +107,3 @@ exports.deleteEmp = async function (req, res, next) {
         })
     }
 }
-
-
-
-
-
-
-
-
-

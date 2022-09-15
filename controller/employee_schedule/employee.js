@@ -19,7 +19,7 @@ exports.addEmployee = async function (req, res, next) {
             ok: true,
             message: "employee is added",
             employee_id: empDoc._id,
-            data: empDoc,
+            //data: empDoc,
         })
     } catch (e) {
         res.status(500).json({
@@ -67,7 +67,8 @@ exports.updateEmployee = async function (req, res, next) {
     const empId = req.params.empId;
     const uemp = req.body;
     try {
-        const emp = employeeModel.findOne({ _id: empId });
+        const emp = await employeeModel.findOne({ _id: empId },
+            {__v:0});
         for (const att in emp) {
             if (att !== "_id" && uemp[att]) emp[att] = uemp[att];
         } await emp.save();
@@ -106,4 +107,29 @@ exports.deleteEmp = async function (req, res, next) {
             message: e.message,
         })
     }
+}
+
+exports.getAllEmployee = async function(req,res, next){
+    /**
+     * Disc  : get all Employee documnet from Employee collection
+     * INPUT : None
+     * OUTPUT: JSON Object with ok status and list of all employees 
+     *         in the collection
+     * ROUTE : /employee/
+     * METHOD: HTTP get
+     */
+     try {
+         const data = await employeeModel.find({
+         }, { __v: 0, password: 0 })
+         res.status(200).json({
+             ok: true,
+             message: `all Employee`,
+             data,
+         })
+     } catch (e) {
+         res.status(500).json({
+             ok: false,
+             message: e.message,
+         })
+     }
 }

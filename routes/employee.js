@@ -4,6 +4,7 @@ const express = require("express");
 
 module.exports = express.Router()
     .post("/", empLogic.addEmployee)
-    .put("/:empId", empLogic.updateEmployee)
+    .get("/", empLogic.getAllEmployee)
     .get("/:empId", empLogic.getEmployee)
     .delete("/:empId", empLogic.deleteEmp)
+    .put("/:empId", empLogic.updateEmployee)

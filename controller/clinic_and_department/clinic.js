@@ -1,6 +1,13 @@
 const clinicModel = require("../../model/clinic_and_department/clinic");
 
 exports.addClinic = async function (req, res, next) {
+  /**
+   * addes a clinic doc to the clinic collection
+   * ROUTE: /clinic/
+   * METHOD: HTTP POST
+   * INPUT: JSON object to that includes the clinic info
+   * RETURN: the inserted Clinic Id
+   */
   const clinicDoc = req.body;
   try {
     const clinicDocDB = await clinicModel.create(clinicDoc);
@@ -24,6 +31,13 @@ exports.addClinic = async function (req, res, next) {
 };
 
 exports.getAllClinics = async function (req, res, next) {
+  /**
+   * get All Clinic in the clinic collection
+   * ROUTE: /clinic/
+   * METHOD: HTTP GET
+   * INPUT: NONE
+   * RETURN: list of Clinics
+   */
   try {
     const clinics = await clinicModel.find(
       {},
@@ -45,6 +59,13 @@ exports.getAllClinics = async function (req, res, next) {
 
 //  /clinic/clinicId
 exports.getClinic = async function (req, res, next) {
+  /**
+   * Quary aparticular clinic with a secific id of clinicId
+   * ROUTE: /clinic/clinicId
+   * METHOD: HTTP GET
+   * INPUT: clinicId specified at the URl
+   * RETURN: docment of specified ID
+   */
   const clinicId = req.params.clinicId;
   try {
     const clinicFound = await clinicModel.findOne(
@@ -67,6 +88,13 @@ exports.getClinic = async function (req, res, next) {
 
 //  /clinic/clinicId
 exports.deleteClinic = async function (req, res, next) {
+    /**
+   * delete aparticular clinic with a secific id of clinicId
+   * ROUTE: /clinic/clinicId
+   * METHOD: HTTP DELETE
+   * INPUT: clinicId specified at the URl
+   * RETURN: NUMber of deleted Records
+   */
   const clinicId = req.params.clinicId;
   try {
     const result = await clinicModel.deleteOne({
@@ -86,6 +114,13 @@ exports.deleteClinic = async function (req, res, next) {
 
 //  /clinic/clinicId
 exports.updateClinic = async function (req, res, next) {
+    /**
+   * update aparticular clinic with secific id of clinicId
+   * ROUTE: /clinic/clinicId
+   * METHOD: HTTP PUT
+   * INPUT: clinicId specified at the URl
+   * RETURN: updated docment of specified ID
+   */
   const clinicId = req.params.clinicId;
   const uclinic = req.body;
   try {
@@ -113,6 +148,13 @@ exports.updateClinic = async function (req, res, next) {
 };
 
 exports.ClinicCount = async function (req, res, next) {
+    /**
+   * compute the total number of clinic on the clinic collection
+   * ROUTE: /clinic/number
+   * METHOD: HTTP GET
+   * INPUT: clinicId specified at the URl
+   * RETURN: docment of specified ID
+   */
   const pipeline = [
     {
       $count: "clinic_number",

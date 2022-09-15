@@ -88,13 +88,13 @@ exports.getClinic = async function (req, res, next) {
 
 //  /clinic/clinicId
 exports.deleteClinic = async function (req, res, next) {
-    /**
-   * delete aparticular clinic with a secific id of clinicId
-   * ROUTE: /clinic/clinicId
-   * METHOD: HTTP DELETE
-   * INPUT: clinicId specified at the URl
-   * RETURN: NUMber of deleted Records
-   */
+  /**
+ * delete aparticular clinic with a secific id of clinicId
+ * ROUTE: /clinic/clinicId
+ * METHOD: HTTP DELETE
+ * INPUT: clinicId specified at the URl
+ * RETURN: NUMber of deleted Records
+ */
   const clinicId = req.params.clinicId;
   try {
     const result = await clinicModel.deleteOne({
@@ -114,13 +114,13 @@ exports.deleteClinic = async function (req, res, next) {
 
 //  /clinic/clinicId
 exports.updateClinic = async function (req, res, next) {
-    /**
-   * update aparticular clinic with secific id of clinicId
-   * ROUTE: /clinic/clinicId
-   * METHOD: HTTP PUT
-   * INPUT: clinicId specified at the URl
-   * RETURN: updated docment of specified ID
-   */
+  /**
+ * update aparticular clinic with secific id of clinicId
+ * ROUTE: /clinic/clinicId
+ * METHOD: HTTP PUT
+ * INPUT: clinicId specified at the URl
+ * RETURN: updated docment of specified ID
+ */
   const clinicId = req.params.clinicId;
   const uclinic = req.body;
   try {
@@ -148,13 +148,13 @@ exports.updateClinic = async function (req, res, next) {
 };
 
 exports.ClinicCount = async function (req, res, next) {
-    /**
-   * compute the total number of clinic on the clinic collection
-   * ROUTE: /clinic/number
-   * METHOD: HTTP GET
-   * INPUT: clinicId specified at the URl
-   * RETURN: docment of specified ID
-   */
+  /**
+ * compute the total number of clinic on the clinic collection
+ * ROUTE: /clinic/number
+ * METHOD: HTTP GET
+ * INPUT: clinicId specified at the URl
+ * RETURN: docment of specified ID
+ */
   const pipeline = [
     {
       $count: "clinic_number",

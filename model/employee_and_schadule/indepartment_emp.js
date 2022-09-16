@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const roleModel = require("./role");
+const employeeModel = require("../employee_and_schadule/empolyee");
 const deptModel = require("../clinic_and_department/department");
 const utils = require("../utils");
 
@@ -13,10 +13,10 @@ const inDepartmentSchema = mongoose.Schema({
     ref: "department",
     required: true,
   },
-  role_id: {
+  employee_id: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: "role",
+    ref: "employee",
   },
   time_from: {
     type: Date,
@@ -32,8 +32,8 @@ const inDepartmentSchema = mongoose.Schema({
 });
 
 inDepartmentSchema.pre("save", async function (next) {
-  if (!(await utils.checkifRefExist(roleModel, this.role_id)))
-    throw new Error("This role is Not Rejestered at role Collection");
+  if (!(await utils.checkifRefExist(employeeModel, this.employee_id)))
+    throw new Error("This employee is Not Rejestered at employee Collection");
 
   if (!(await utils.checkifRefExist(deptModel, this.department_id)))
     throw new Error(

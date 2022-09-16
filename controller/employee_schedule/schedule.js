@@ -2,7 +2,7 @@ const scheduleModel = require("../../model/employee_and_schadule/schedule");
 
 
 
-exports.addSchedule = async function (req, res, next) {
+exports.addIndeptSchedule = async function (req, res, next) {
     /***************************************
      * Disc  : add an schedule for particuler employee in the particuler department
      * INPUT : indeptId, and arest of schedule object
@@ -31,7 +31,7 @@ exports.addSchedule = async function (req, res, next) {
 };
 
 
-exports.getAllSchedule = async function (req, res, next) {
+exports.getAllIndeptSchedule = async function (req, res, next) {
     /***************************************
      * Disc  : get all schedule for particuler indepartment 
      * INPUT : indeptIdin route URl
@@ -43,7 +43,7 @@ exports.getAllSchedule = async function (req, res, next) {
     try {
         const schelist = await scheduleModel.find({
             in_department_id: indeptId,
-        },{__v:0})
+        }, { __v: 0 })
         res.status(200).json({
             ok: true,
             message: `all schedules for ${indeptId}`,
@@ -56,6 +56,59 @@ exports.getAllSchedule = async function (req, res, next) {
         })
     }
 }
+
+exports.updateSchedule = async function (req, res, next) {
+    /***************************************
+     * Disc  : update a schedule of of schId
+     * INPUT : schId of in URL and update object
+     * OUTPUT: ok status flag
+     * ROUTE : /schedule/schId
+     * METHOD: HTTP PUT
+     ****************************************/
+    const usch = req.body;
+    const schId = req.params.schId;
+    try {
+        const doc = await scheduleModel.findOne({
+            _id: schId
+        }, { __v: 0 });
+        for (const att in doc) {
+            if (att !== "_id" && usch[att]) doc[att] = usch[att];
+        };
+        await doc.save();
+        res.status(200).json({
+            ok: true,
+            message: "schedule doc is updated",
+        })
+    } catch (e) {
+        res.status(500).json({
+            ok: false,
+            message: e.message,
+        })
+    }
+}
+
+exports.deleteSchedule = async function (req, res, next) {
+    /***************************************
+     * Disc  :  delete aschedule from schedule Collection
+     * INPUT : 
+     * OUTPUT: 
+     * ROUTE : 
+     * METHOD: HTTP DELETE
+     ****************************************/
+
+}
+
+exports.getSchedule = async function (req, res, next) {
+    /***************************************
+     * Disc  :  
+     * INPUT : 
+     * OUTPUT: 
+     * ROUTE : 
+     * METHOD: HTTP GET
+     ****************************************/
+
+}
+
 
 
 

@@ -83,7 +83,7 @@ exports.updateRole = async function (req, res, next) {
     }
 }
 
-exports.deleterole = async function (req, res, next) {
+exports.deleteRole = async function (req, res, next) {
     /*********************************************************
      * Disc  : delete role documnet in role collection
      * INPUT : roleId in Route URl is the role to delte

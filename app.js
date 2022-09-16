@@ -8,7 +8,7 @@ mongoose.pluralize(null);
 const clinicRoute = require("./routes/clinic");
 const deptRoute = require("./routes/department");
 const empRoute = require("./routes/employee");
-
+const roleRoute = require("./routes/role");
 
 async function run() {
   try {
@@ -25,6 +25,7 @@ async function run() {
     .use("/clinic", clinicRoute)
     .use("/department", deptRoute)
     .use("/employee", empRoute)
+    .use("/role", roleRoute)
 
     .listen(process.env.PORT || 3000, () => {
       console.log("Server is listening");

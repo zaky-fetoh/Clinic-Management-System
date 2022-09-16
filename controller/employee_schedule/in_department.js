@@ -195,3 +195,34 @@ exports.deleteIndept = async function (req, res, next) {
     }
 }
 
+exports.updateIndept = async function (req, res, next) {
+    /********************************************************
+     * Disc  : update indept of in-department Collection
+     * ROUTE : /in-department/:indeptId
+     * METHOD: HTTP PUT
+     * INPUT : url indeptId input
+     * OUTPUT: JSON Object with ok status 
+     */
+    const indeptId= req.params.indeptId;
+    const uindept = req.body;
+    try{
+        const dept = await indeptModel.findOne({
+         _id: indeptId,
+        },{__v:0})
+
+        for(const att in dept){
+            if(att !== '_id' && uindept[att]) dept[att] = uindept[att];
+        }
+        await dept.save() 
+        res.status(200).json({
+            message:"in-department is updated",
+            data: dept,
+            ok:true, 
+        }); 
+    }catch(e){
+        res.status(500).json({
+            ok:false,
+            message: e.message,
+        });
+    }
+}

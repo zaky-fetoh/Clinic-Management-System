@@ -90,23 +90,53 @@ exports.updateSchedule = async function (req, res, next) {
 exports.deleteSchedule = async function (req, res, next) {
     /***************************************
      * Disc  :  delete aschedule from schedule Collection
-     * INPUT : 
-     * OUTPUT: 
-     * ROUTE : 
+     * INPUT : schId in url
+     * OUTPUT: the ok status and meta data
+     * ROUTE : /schedule/:schId
      * METHOD: HTTP DELETE
      ****************************************/
-
+    const schId = req.params.schId;
+    try {
+        let result = await scheduleModel.deleteOne({
+            _id: schId,
+        });
+        res.status(200).json({
+            ok: true,
+            message: `operation is done`,
+            result,
+        })
+    } catch (e) {
+        res.status(500).json({
+            ok: false,
+            message: e.message,
+        })
+    }
 }
 
 exports.getSchedule = async function (req, res, next) {
     /***************************************
-     * Disc  :  
-     * INPUT : 
-     * OUTPUT: 
-     * ROUTE : 
+     * Disc  : get a schedule with inputedId
+     * INPUT : schId in url
+     * OUTPUT: required document
+     * ROUTE : /schedule/:schId
      * METHOD: HTTP GET
      ****************************************/
-
+     const schId = req.params.schId;
+     try {
+         let result = await scheduleModel.findOne({
+             _id: schId,
+         }, {__v:0});
+         res.status(200).json({
+             ok: true,
+             message: `operation is done`,
+             data: result,
+         })
+     } catch (e) {
+         res.status(500).json({
+             ok: false,
+             message: e.message,
+         })
+     }
 }
 
 

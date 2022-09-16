@@ -19,6 +19,6 @@ module.exports = express.Router()
 
     .post("/:empId/in-department/", indeptLogic.addEmpDept)
     .get("/:empId/in-department/",indeptLogic.getAllEmpDept)
-    .get("/:empId/in-department/:indeptId",indeptLogic.getEmpDept)
-    .put("/:empId/in-department/:indeptId", indeptLogic.updateEmpDept)
-    .delete("/:empId/in-department/:indeptId", indeptLogic.deleteEmpDept)
+    .get("/:empId/in-department/:indeptId",indeptLogic.getEmpDept)//
+    .put("/:empId/in-department/:indeptId", indeptLogic.updateEmpDept)//
+    .delete("/:empId/in-department/:indeptId", indeptLogic.deleteEmpDept)//

@@ -33,7 +33,7 @@ exports.getAllEmpDept = async function (req, res, next) {
      * ROUTE : /employee/:empId/in-department/
      * METHOD: HTTP GET
      * INPUT : EmployeeId in :empId of url
-     * OUTPUT: JSON Object with ok status and role of employee
+     * OUTPUT: JSON Object with ok status and indpet of employee
      */
     const empId = req.params.empId;
     try{
@@ -55,11 +55,11 @@ exports.getAllEmpDept = async function (req, res, next) {
 
 exports.getEmpDept = async function (req, res, next) {
     /********************************************************
-     * Disc  : get has role of employee in has role collection
+     * Disc  : get indept of employee in indepartment collection
      * ROUTE : /employee/:empId/in-department/:indeptId
      * METHOD: HTTP GET
-     * INPUT : EmployeeId in :empId of url and roleId of url
-     * OUTPUT: JSON Object with ok status and role of employee
+     * INPUT : EmployeeId in :empId of url and indeptId of url
+     * OUTPUT: JSON Object with ok status and indept of employee
      */
     const empId = req.params.empId;
     const indeptId= req.params.indeptId;
@@ -69,7 +69,7 @@ exports.getEmpDept = async function (req, res, next) {
         },{__v:0})
         res.status(200).json({
             ok:true, 
-            message:`role with ${indeptId}`,
+            message:`indept with ${indeptId}`,
             data: dept,
         });
     }catch(e){
@@ -128,6 +128,59 @@ exports.deleteEmpDept = async function (req, res, next) {
     try{
         const result = await indeptModel.deleteOne({
             employee_id: empId, _id: indpetId
+        })
+        res.status(200).json({
+            message:`indepartment with ${indpetId} is deleted`,
+            data: result,
+            ok:true, 
+        });
+    }catch(e){
+        res.status(500).json({
+            message: e.message,
+            ok:false,
+        });
+    }
+}
+
+exports.getIndept = async function(req, res, next){
+    /********************************************************
+     * Disc  : get indept in indept collection using indeptId
+     * ROUTE : /in-department/:indeptId
+     * METHOD: HTTP GET
+     * INPUT : roleId of url
+     * OUTPUT: JSON Object with ok status and indept of employee
+     */
+     const indeptId= req.params.indeptId;
+     try{
+         const dept = await indeptModel.findOne({
+            _id: indeptId,
+         },{__v:0})
+         res.status(200).json({
+             ok:true, 
+             message:`indept with ${indeptId}`,
+             data: dept,
+         });
+     }catch(e){
+         res.status(500).json({
+             ok:false,
+             message: e.message,
+         });
+     }
+}
+
+
+exports.deleteIndept = async function (req, res, next) {
+    /********************************************************
+     * Disc  : delete a indept with indeptId
+     * ROUTE : /in-department/:indeptId
+     * METHOD: HTTP DELETE
+     * INPUT : indeptId of url
+     * OUTPUT: JSON Object with ok status 
+     */
+    const indpetId= req.params.indeptId;
+    try{
+        const result = await indeptModel.deleteOne({
+            _id: indpetId,
         })
         res.status(200).json({
             message:`indepartment with ${indpetId} is deleted`,

@@ -97,7 +97,7 @@ exports.updateEmpDept = async function (req, res, next) {
             employee_id: empId, _id: indeptId
         },{__v:0})
 
-        for(let att in dept){
+        for(const att in dept){
             if(att !== '_id' && uindept[att]) dept[att] = uindept[att];
         }
         await dept.save() 

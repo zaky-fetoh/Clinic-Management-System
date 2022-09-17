@@ -76,3 +76,81 @@ exports.getAllClinicEmployee = async function(req, res, next){
       });
     }
 }
+
+
+
+exports.getTotalNumberofEmployeeClinic = async function(req, res, next){
+    /***************************************
+     * Disc  :get total number of employee working for clinic 
+     * INPUT : clinicId route URl
+     * OUTPUT: list of all employee workfor clinicId
+     * ROUTE : /clinic/employee/:clinicId/number
+     * METHOD: HTTP GET
+     *****************/
+    clinicId = req.params.clinicId;
+    pipleline = [
+        {$match:{_id: mongoose.Types.ObjectId(clinicId)}},
+        {$lookup:{
+            from: "department", 
+            localField: "_id",
+            foreignField: "clinic_id",
+            as: "departments",
+        }},
+        {$unwind:{
+            path:"$departments",
+        }},
+        {$lookup:{
+            from:"in_department_emp",
+            localField:"departments._id",
+            foreignField:"department_id",
+            as: "indepartments",
+        }},
+        {$project:{
+            departments:0
+        }},
+        {$unwind:{
+            path:"$indepartments",
+        }},
+        {$lookup:{
+            from: "employee",
+            localField: "indepartments.employee_id",
+            foreignField: "_id", 
+            as: "employees",
+        }},
+        {$project:{
+            indepartments:0
+        }},
+        {$unwind:{
+            path:"$employees",
+        }},
+        {$project:{
+            clinic_name: 1, employees:1
+        }},
+        {$group:{
+            _id:{clinic_id:"$_id",
+                clinic_name: "$clinic_name"},
+            total_employee_number:{$sum:1},
+        }},
+        {$addFields:{
+            clinic_id:"$_id.clinic_id",
+            clinic_name:"$_id.clinic_name",
+        }},
+    ]
+    try{
+    const data = await clinicModel.aggregate(pipleline);
+    res.status(200).json({
+        ok: true,
+        message: "operation complete",
+        data,
+      });
+    } catch (e) {
+      res.status(500).json({
+        ok: false,
+        message: e.message,
+      });
+    }
+}
+
+
+
+

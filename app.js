@@ -9,6 +9,8 @@ const deptRoute = require("./routes/department");
 const empRoute = require("./routes/employee");
 const roleRoute = require("./routes/role");
 const indeptRoute = require("./routes/indepartment");
+const schedRoute = require("./routes/schedule");
+
 
 async function run() {
   try {
@@ -27,7 +29,8 @@ async function run() {
     .use("/employee", empRoute)
     .use("/role", roleRoute)
     .use("/in-department", indeptRoute)
-
+    .use("/schedule", schedRoute)
+    
     .listen(process.env.PORT || 3000, () => {
       console.log("Server is listening");
     });

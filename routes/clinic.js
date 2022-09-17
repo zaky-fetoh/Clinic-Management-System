@@ -2,6 +2,7 @@ const express = require("express");
 
 const clinicLogic = require("../controller/clinic_and_department/clinic");
 const clnDeptLogic = require("../controller/clinic_and_department/clinic_department");
+const aggClinic = require("../controller/aggregation/clinic");
 
 module.exports = express.Router()
   .post("/", clinicLogic.addClinic)
@@ -9,6 +10,7 @@ module.exports = express.Router()
   .get("/number", clinicLogic.ClinicCount)
   .get("/department", clnDeptLogic.getClinicWithItsDepts)
   .get("/department/number", clnDeptLogic.getTotalCountOfDeptForEachClinic)
+  .get("/employee/:clinicId", aggClinic.getAllClinicEmployee)
 
   .get("/:clinicId", clinicLogic.getClinic)
   .delete("/:clinicId", clinicLogic.deleteClinic)

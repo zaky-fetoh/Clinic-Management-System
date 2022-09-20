@@ -259,6 +259,3 @@ exports.getAllClinicEmployeeSch = async function (req, res, next) {
         });
     }
 }
-
-
-

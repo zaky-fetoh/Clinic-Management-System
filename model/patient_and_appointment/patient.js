@@ -9,10 +9,12 @@ const patientSchema = mongoose.Schema({
     first_name:{
         type: String,
         required:true,
+        max:30,
     },
     last_name:{ 
         type: String, 
         required:true,
+        max:30,
     },
 });
 

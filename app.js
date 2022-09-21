@@ -15,6 +15,8 @@ const schedRoute = require("./routes/schedule");
 const patientRoute = require("./routes/patient");
 const patientCaseRoute = require("./routes/patient_case");
 const appointStRoute = require("./routes/appointment_status");
+const appointRoute = require("./routes/appointment");
+const stHistRoute = require("./routes/status_history");
 
 async function run() {
   try {
@@ -30,7 +32,7 @@ async function run() {
     .use(express.urlencoded())
     .use("/clinic", clinicRoute)
     .use("/department", deptRoute)
-    
+
     .use("/in-department", indeptRoute)
     .use("/schedule", schedRoute)
     .use("/employee", empRoute)
@@ -39,6 +41,8 @@ async function run() {
     .use("/patient", patientRoute)
     .use("/patient-case", patientCaseRoute)
     .use("/appointment-status", appointStRoute)
+    .use("/appointment", appointRoute)
+    .use("/status-history", stHistRoute)
 
     .listen(process.env.PORT || 3000, () => {
       console.log("Server is listening");

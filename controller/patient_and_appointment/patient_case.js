@@ -11,7 +11,7 @@ exports.addPatientCase = async function (req, res, next) {
      * ROUTE : /patient/patId/case/
      * METHOD: HTTP POST
      */
-    const body = req.body;
+    const body = req.body;  
     const patId = req.params.patId
     try {
         Object.assign(body, {
@@ -31,7 +31,7 @@ exports.addPatientCase = async function (req, res, next) {
     }
 }
 
-exports.getPatient = async function (req, res, next) {
+exports.getPatientCase = async function (req, res, next) {
     /**
      * Disc  : retreve the patient case doc form the patientCase model
      * INPUT : patientCaseId
@@ -57,7 +57,7 @@ exports.getPatient = async function (req, res, next) {
     }
 }
 
-exports.updatePatient = async function (req, res, next) {
+exports.updatePatientCase = async function (req, res, next) {
     /**
      * Disc  : update patient case with the PostPayload
      * INPUT : the patientcaseId in params and the payload 
@@ -89,7 +89,7 @@ exports.updatePatient = async function (req, res, next) {
 }
 
 
-exports.deletePatient = async function (req, res, next) {
+exports.deletePatientCase = async function (req, res, next) {
     /**
      * Disc  : delete the patientcase method from the Pc collection
      * INPUT : the patientCaseId in the url params

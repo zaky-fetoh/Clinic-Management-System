@@ -1,21 +1,22 @@
-const appoinStModel = require("../../model/patient_and_appointment/appointment_status")
+const appoinModel = require("../../model/patient_and_appointment/appointment");
 
 
-exports.addAppointSta = async function (req, res, next) {
+
+exports.addPatient = async function (req, res, next) {
     /**
- * Disc  : this method add an appointStatus  to appintStatus collection.
+ * Disc  : this method is used to add a patient to the patient collection.
  * INPUT : post payload for patient document.
  * OUTPUT: inserted document _id and 0k status flag.
- * ROUTE : /appointment-status/
+ * ROUTE : /patient
  * METHOD: HTTP POST
  */
     const body = req.body;
     try {
-        const doc = await appoinStModel.create(body)
+        const pat = await appoinModel.create(body)
         res.status(200).json({
             ok: true,
             message: "patient is added",
-            appointment_status_id: doc._id
+            patient_id: pat._id
         });
     } catch (e) {
         res.status(500).json({
@@ -25,19 +26,18 @@ exports.addAppointSta = async function (req, res, next) {
     }
 }
 
-exports.getAppointStatus = async function (req, res, next) {
+exports.getPatient = async function (req, res, next) {
     /**
-     * Disc  : this method fetch the appointment status
-     *           from appointment status collection 
-     * INPUT : appsId in the URl of the input.
-     * OUTPUT: a document with that appsId
-     * ROUTE : /appointment-status/appsId
+     * Disc  : this method fetch the patient from patient collection 
+     * INPUT : patId in the URl of the input.
+     * OUTPUT: a document with that PatId
+     * ROUTE : /patient/patId
      * METHOD: HTTP GET
      */
-    const appsId = req.params.appsId;
+    const patId = req.params.patId;
     try {
-        const doc = appoinStModel.findOne({
-            _id: appsId,
+        const doc = appoinModel.findOne({
+            _id: patId,
         }, { __v: 0 });
         res.status(200).json({
             ok: true,
@@ -52,20 +52,20 @@ exports.getAppointStatus = async function (req, res, next) {
     }
 }
 
-exports.updateAppoinStatus = async function (req, res, next) {
+exports.updatePatient = async function (req, res, next) {
     /**
-     * Disc  : this Method update the appointment status with agiven appsId 
+     * Disc  : this Method update the patient with agiven patId 
      *         with the payload of the Post method
-     * INPUT : appsId in url params, and payload of the post
+     * INPUT : patId in url params, and payload of the post
      * OUTPUT: ok status flag
-     * ROUTE : /appointment-status/appsId
+     * ROUTE : /patient/patId
      * METHOD: HTTP PUT
      */
-    const appsId = req.params.appsId;
+    const patId = req.params.patId;
     const body = req.body;
     try {
-        const doc = await appoinStModel.findOne({
-            _id: appsId,
+        const doc = await appoinModel.findOne({
+            _id: patId,
         }, { __v: 0 });
         for (let att in doc) {
             if (att !== "_id" && body[att]) doc[att] = body[att];
@@ -84,19 +84,18 @@ exports.updateAppoinStatus = async function (req, res, next) {
 }
 
 
-exports.deleteAppoinStatus = async function (req, res, next) {
+exports.deletePatient = async function (req, res, next) {
     /**
-     * Disc  : this method deletes the appointment status 
-     *          documnet of the given appsId 
-     * INPUT : appsId of url params
+     * Disc  : this method deletes the patient documnet of the given PatId 
+     * INPUT : patId of url params
      * OUTPUT: returns status code and the total number of deleted doc
-     * ROUTE : /appointment-status/appsId
+     * ROUTE : /patient/patId
      * METHOD: HTTP DELETE
      */
-    const appsId = req.params.appsId;
+    const patId = req.params.patId;
     try {
-        const doc = appoinStModel.deleteOne({
-            _id: appsId,
+        const doc = appoinModel.deleteOne({
+            _id: patId,
         });
         res.status(200).json({
             ok: true,

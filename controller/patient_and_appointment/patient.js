@@ -35,7 +35,7 @@ exports.getPatient = async function (req, res, next) {
      */
     const patId = req.params.patId;
     try {
-        const doc = patientModel.findOne({
+        const doc = await patientModel.findOne({
             _id: patId,
         }, { __v: 0 });
         res.status(200).json({
@@ -68,8 +68,8 @@ exports.updatePatient = async function (req, res, next) {
         }, { __v: 0 });
         for (let att in doc) {
             if (att !== "_id" && body[att]) doc[att] = body[att];
-            doc.save()
         }
+        doc.save()
         res.status(200).json({
             ok: true,
             meassage: "documnet updated",
@@ -93,7 +93,7 @@ exports.deletePatient = async function (req, res, next) {
      */
     const patId = req.params.patId;
     try {
-        const doc = patientModel.deleteOne({
+        const doc = await patientModel.deleteOne({
             _id: patId,
         });
         res.status(200).json({

@@ -1,7 +1,5 @@
 const appoinModel = require("../../model/patient_and_appointment/appointment");
 
-
-
 exports.addAppoint = async function (req, res, next) {
     /**
  * Disc  : this method addes an appointment in appointment collection.
@@ -37,7 +35,7 @@ exports.getAppointment = async function (req, res, next) {
      */
     const appId = req.params.appId;
     try {
-        const doc = appoinModel.findOne({
+        const doc = await appoinModel.findOne({
             _id: appId,
         }, { __v: 0 });
         res.status(200).json({
@@ -70,8 +68,8 @@ exports.updateAppointment = async function (req, res, next) {
         }, { __v: 0 });
         for (let att in doc) {
             if (att !== "_id" && body[att]) doc[att] = body[att];
-            doc.save()
         }
+        doc.save()
         res.status(200).json({
             ok: true,
             meassage: "documnet updated",
@@ -96,12 +94,12 @@ exports.deleteAppointment = async function (req, res, next) {
      */
     const appId = req.params.appId;
     try {
-        const doc = appoinModel.deleteOne({
+        const doc = await appoinModel.deleteOne({
             _id: appId,
         });
         res.status(200).json({
             ok: true,
-            message: "comleted",
+            message: "completed",
             result: doc,
         });
     } catch (e) {

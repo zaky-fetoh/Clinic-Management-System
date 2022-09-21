@@ -36,7 +36,7 @@ exports.getStHist = async function (req, res, next) {
      */
     const stHistId = req.params.stHistId;
     try {
-        const doc = stHisModel.findOne({
+        const doc = await stHisModel.findOne({
             _id: stHistId,
         }, { __v: 0 });
         res.status(200).json({
@@ -63,7 +63,7 @@ exports.updateStHist = async function (req, res, next) {
     const body = req.body;
     const stHistId = req.params.stHistId
     try {
-        const doc = stHisModel.findOne({
+        const doc = await stHisModel.findOne({
             _id: stHistId,
         }, { __v: 0 });
         for (let att in doc) {

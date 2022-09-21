@@ -6,11 +6,13 @@ mongoose.pluralize(null);
 
 const clinicRoute = require("./routes/clinic");
 const deptRoute = require("./routes/department");
+
 const empRoute = require("./routes/employee");
 const roleRoute = require("./routes/role");
 const indeptRoute = require("./routes/indepartment");
 const schedRoute = require("./routes/schedule");
 
+const patientRoute = require("./routes/patient");
 
 async function run() {
   try {
@@ -26,11 +28,14 @@ async function run() {
     .use(express.urlencoded())
     .use("/clinic", clinicRoute)
     .use("/department", deptRoute)
+    
     .use("/employee", empRoute)
     .use("/role", roleRoute)
     .use("/in-department", indeptRoute)
     .use("/schedule", schedRoute)
     
+    .use("/patient", patientRoute)
+
     .listen(process.env.PORT || 3000, () => {
       console.log("Server is listening");
     });

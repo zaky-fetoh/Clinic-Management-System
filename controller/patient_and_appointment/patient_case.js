@@ -41,12 +41,12 @@ exports.getPatientCase = async function (req, res, next) {
      **/
     const pcId = req.params.pcId;
     try {
-        const doc = patientCaseModel.findOne({
+        const doc = await patientCaseModel.findOne({
             _id: pcId,
         }, { __v: 0 });
         res.status(200).json({
             ok: true,
-            message: "comleted",
+            message: "completed",
             data: doc,
         });
     } catch (e) {
@@ -74,8 +74,8 @@ exports.updatePatientCase = async function (req, res, next) {
         }, { __v: 0 });
         for (let att in doc) {
             if (att !== "_id" && body[att]) doc[att] = body[att];
-            doc.save()
         }
+        doc.save()
         res.status(200).json({
             ok: true,
             meassage: "documnet updated",
@@ -99,12 +99,12 @@ exports.deletePatientCase = async function (req, res, next) {
      */
     const pcId = req.params.pcId;
     try {
-        const doc = patientCaseModel.deleteOne({
+        const doc = await patientCaseModel.deleteOne({
             _id: pcId,
         });
         res.status(200).json({
             ok: true,
-            message: "comleted",
+            message: "completed",
             result: doc,
         });
     } catch (e) {

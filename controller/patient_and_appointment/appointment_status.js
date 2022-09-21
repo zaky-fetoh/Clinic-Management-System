@@ -36,12 +36,12 @@ exports.getAppointStatus = async function (req, res, next) {
      */
     const appsId = req.params.appsId;
     try {
-        const doc = appoinStModel.findOne({
+        const doc = await appoinStModel.findOne({
             _id: appsId,
         }, { __v: 0 });
         res.status(200).json({
             ok: true,
-            message: "comleted",
+            message: "completed",
             data: doc,
         });
     } catch (e) {
@@ -69,8 +69,8 @@ exports.updateAppoinStatus = async function (req, res, next) {
         }, { __v: 0 });
         for (let att in doc) {
             if (att !== "_id" && body[att]) doc[att] = body[att];
-            doc.save()
         }
+        doc.save()
         res.status(200).json({
             ok: true,
             meassage: "documnet updated",
@@ -95,7 +95,7 @@ exports.deleteAppoinStatus = async function (req, res, next) {
      */
     const appsId = req.params.appsId;
     try {
-        const doc = appoinStModel.deleteOne({
+        const doc = await appoinStModel.deleteOne({
             _id: appsId,
         });
         res.status(200).json({

@@ -14,7 +14,7 @@ exports.addAppointSta = async function (req, res, next) {
         const doc = await appoinStModel.create(body)
         res.status(200).json({
             ok: true,
-            message: "patient is added",
+            message: "appointment status is added",
             appointment_status_id: doc._id
         });
     } catch (e) {
@@ -100,7 +100,7 @@ exports.deleteAppoinStatus = async function (req, res, next) {
         });
         res.status(200).json({
             ok: true,
-            message: "comleted",
+            message: "document deleted",
             result: doc,
         });
     } catch (e) {

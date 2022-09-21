@@ -4,14 +4,15 @@ const patientCaseModel = require("../../model/patient_and_appointment/patient_ca
 
 exports.addPatientCase = async function (req, res, next) {
     /**
-     * Disc  : this method addes a patientCase doc in patient case collection
+     * Disc  : this method addes a patientCase doc in 
+     *         patient case collection
      * INPUT : payload body of the POST method
      * OUTPUT: _id of the inserted patient Case Object
      * ROUTE : /patient/patId/case/
      * METHOD: HTTP POST
      */
     const body = req.body;
-    const patId =  req.params.patId
+    const patId = req.params.patId
     try {
         Object.assign(body, {
             patient_id: patId
@@ -37,7 +38,7 @@ exports.getPatient = async function (req, res, next) {
      * OUTPUT: the required document
      * ROUTE : /patient-case/pcId
      * METHOD: HTTP GET
-     */
+     **/
     const pcId = req.params.pcId;
     try {
         const doc = patientCaseModel.findOne({
@@ -59,11 +60,12 @@ exports.getPatient = async function (req, res, next) {
 exports.updatePatient = async function (req, res, next) {
     /**
      * Disc  : update patient case with the PostPayload
-     * INPUT : the patientcaseId in params and the payload of to update with
+     * INPUT : the patientcaseId in params and the payload 
+     *          of to update with
      * OUTPUT: ok status
      * ROUTE : /patient-case/pcId
-     * METHOD: HTTP Put
-     */
+     * METHOD: HTTP PUT
+     **/
     const pcId = req.params.pcId;
     const body = req.body;
     try {

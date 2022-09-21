@@ -13,6 +13,7 @@ module.exports = express.Router()
   .get("/employee/:clinicId", aggClinic.getAllClinicEmployee)
   .get("/employee/:clinicId/number", aggClinic.getTotalNumberofEmployeeClinic)
   .get("/schedule/:clinicId", aggClinic.getAllClinicEmployeeSch)
+  .get("/patient/:clinicId", aggClinic.getAllClinicCases)
 
   .get("/:clinicId", clinicLogic.getClinic)
   .delete("/:clinicId", clinicLogic.deleteClinic)

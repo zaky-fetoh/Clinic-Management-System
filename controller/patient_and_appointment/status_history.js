@@ -91,7 +91,7 @@ exports.deleteStHist = async function (req, res, next) {
  * ROUTE : /status-history/:stHistId
  * METHOD: HTTP DELETE
  */
-    const stHistId = req.stHistId;
+    const stHistId = req.params.stHistId;
     try {
         const result = await stHisModel.deleteOne({
             _id: stHistId,

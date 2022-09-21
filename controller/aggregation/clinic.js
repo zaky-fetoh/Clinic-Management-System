@@ -259,3 +259,65 @@ exports.getAllClinicEmployeeSch = async function (req, res, next) {
         });
     }
 }
+
+
+
+exports.getAllClinicCases = async function(req, res, next){
+    /*******************************************************
+     * Disc  : get all patient cases of clinic with clinicId
+     * INPUT : clinicId 
+     * OUTPUT: alist of patient cases
+     * ROUTE : clinic/patient/:clinicId
+     * METHOD: HTTP GET
+     *****************/
+    const clinicId = req.params.clinicId;
+    const pipeline = [
+        {$match:{_id: mongoose.Types.ObjectId(clinicId)}},
+        {$lookup:{
+            from:"department",
+            localField:"_id",
+            foreignField:"clinic_id", 
+            as: "departments",
+        }},
+        {$lookup:{
+            from: "in_department_emp", 
+            localField:"departments._id", 
+            foreignField: "department_id",
+            as: "indepartments", 
+            pipeline:[
+                {$lookup:{
+                    from: "appointment",
+                    localField:"_id", 
+                    foreignField:"in_department_id",
+                    as: "appointments",
+                    pipeline:[{$lookup:{
+                        from: "patient_case",
+                        localField: "patient_case_id", 
+                        foreignField:"_id",
+                        as: "patient_cases",
+                        pipeline:[{$lookup:{
+                            from:"patient",
+                            localField:"patient_id",
+                            foreignField: "_id", 
+                            as: "patient",
+                        }}]
+                    }}]
+                }},
+            ]
+        }},
+        {$project:{departments:0}},
+    ]
+    try {
+        const data = await clinicModel.aggregate(pipeline);
+        res.status(200).json({
+            ok: true,
+            message: "operation complete",
+            data,
+        });
+    } catch (e) {
+        res.status(500).json({
+            ok: false,
+            message: e.message,
+        });
+    }
+}

@@ -31,7 +31,7 @@ exports.getAppointStatus = async function (req, res, next) {
      *           from appointment status collection 
      * INPUT : appsId in the URl of the input.
      * OUTPUT: a document with that appsId
-     * ROUTE : /appointment-status/appsId
+     * ROUTE : /appointment-status/:appsId
      * METHOD: HTTP GET
      */
     const appsId = req.params.appsId;
@@ -58,7 +58,7 @@ exports.updateAppoinStatus = async function (req, res, next) {
      *         with the payload of the Post method
      * INPUT : appsId in url params, and payload of the post
      * OUTPUT: ok status flag
-     * ROUTE : /appointment-status/appsId
+     * ROUTE : /appointment-status/:appsId
      * METHOD: HTTP PUT
      */
     const appsId = req.params.appsId;
@@ -90,7 +90,7 @@ exports.deleteAppoinStatus = async function (req, res, next) {
      *          documnet of the given appsId 
      * INPUT : appsId of url params
      * OUTPUT: returns status code and the total number of deleted doc
-     * ROUTE : /appointment-status/appsId
+     * ROUTE : /appointment-status/:appsId
      * METHOD: HTTP DELETE
      */
     const appsId = req.params.appsId;

@@ -30,7 +30,7 @@ exports.getPatient = async function (req, res, next) {
      * Disc  : this method fetch the patient from patient collection 
      * INPUT : patId in the URl of the input.
      * OUTPUT: a document with that PatId
-     * ROUTE : /patient/patId
+     * ROUTE : /patient/:patId
      * METHOD: HTTP GET
      */
     const patId = req.params.patId;
@@ -57,7 +57,7 @@ exports.updatePatient = async function (req, res, next) {
      *         with the payload of the Post method
      * INPUT : patId in url params, and payload of the post
      * OUTPUT: ok status flag
-     * ROUTE : /patient/patId
+     * ROUTE : /patient/:patId
      * METHOD: HTTP PUT
      */
     const patId = req.params.patId;
@@ -88,7 +88,7 @@ exports.deletePatient = async function (req, res, next) {
      * Disc  : this method deletes the patient documnet of the given PatId 
      * INPUT : patId of url params
      * OUTPUT: returns status code and the total number of deleted doc
-     * ROUTE : /patient/patId
+     * ROUTE : /patient/:patId
      * METHOD: HTTP DELETE
      */
     const patId = req.params.patId;

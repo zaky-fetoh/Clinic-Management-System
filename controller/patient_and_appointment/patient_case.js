@@ -8,7 +8,7 @@ exports.addPatientCase = async function (req, res, next) {
      *         patient case collection
      * INPUT : payload body of the POST method
      * OUTPUT: _id of the inserted patient Case Object
-     * ROUTE : /patient/patId/case/
+     * ROUTE : /patient/:patId/case/
      * METHOD: HTTP POST
      */
     const body = req.body;  
@@ -21,7 +21,7 @@ exports.addPatientCase = async function (req, res, next) {
         res.status(200).json({
             ok: true,
             message: "patient case is added",
-            patient_id: pat._id
+            patient_case_id: pat._id
         });
     } catch (e) {
         res.status(500).json({
@@ -36,7 +36,7 @@ exports.getPatientCase = async function (req, res, next) {
      * Disc  : retreve the patient case doc form the patientCase model
      * INPUT : patientCaseId
      * OUTPUT: the required document
-     * ROUTE : /patient-case/pcId
+     * ROUTE : /patient-case/:pcId
      * METHOD: HTTP GET
      **/
     const pcId = req.params.pcId;
@@ -63,7 +63,7 @@ exports.updatePatientCase = async function (req, res, next) {
      * INPUT : the patientcaseId in params and the payload 
      *          of to update with
      * OUTPUT: ok status
-     * ROUTE : /patient-case/pcId
+     * ROUTE : /patient-case/:pcId
      * METHOD: HTTP PUT
      **/
     const pcId = req.params.pcId;
@@ -94,7 +94,7 @@ exports.deletePatientCase = async function (req, res, next) {
      * Disc  : delete the patientcase method from the Pc collection
      * INPUT : the patientCaseId in the url params
      * OUTPUT: ok status and the total number of the deleted status
-     * ROUTE : /patient-case/pcId
+     * ROUTE : /patient-case/:pcId
      * METHOD: HTTP DELETE 
      */
     const pcId = req.params.pcId;

@@ -16,7 +16,7 @@ exports.addAppoint = async function (req, res, next) {
         res.status(200).json({
             ok: true,
             message: "appointment is added",
-            patient_id: doc._id
+            appointment_id: doc._id
         });
     } catch (e) {
         res.status(500).json({
@@ -32,7 +32,7 @@ exports.getAppointment = async function (req, res, next) {
      *          appointment collection 
      * INPUT : appId in the URl of the input.
      * OUTPUT: a document with that appId
-     * ROUTE : /appointment/appId
+     * ROUTE : /appointment/:appId
      * METHOD: HTTP GET
      */
     const appId = req.params.appId;
@@ -59,7 +59,7 @@ exports.updateAppointment = async function (req, res, next) {
      *         with the payload of the Post method
      * INPUT : appId in url params, and payload of the post
      * OUTPUT: ok status flag
-     * ROUTE : /appointment/appId
+     * ROUTE : /appointment/:appId
      * METHOD: HTTP PUT
      */
     const appId = req.params.appId;
@@ -91,7 +91,7 @@ exports.deleteAppointment = async function (req, res, next) {
      *           of the given appId 
      * INPUT : appId of url params
      * OUTPUT: returns status code and the total number of deleted doc
-     * ROUTE : /patient/appId
+     * ROUTE : /patient/:appId
      * METHOD: HTTP DELETE
      */
     const appId = req.params.appId;

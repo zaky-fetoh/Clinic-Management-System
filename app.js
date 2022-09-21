@@ -13,6 +13,8 @@ const indeptRoute = require("./routes/indepartment");
 const schedRoute = require("./routes/schedule");
 
 const patientRoute = require("./routes/patient");
+const patientCaseRoute = require("./routes/patient_case");
+const appointStRoute = require("./routes/appointment_status");
 
 async function run() {
   try {
@@ -29,12 +31,14 @@ async function run() {
     .use("/clinic", clinicRoute)
     .use("/department", deptRoute)
     
-    .use("/employee", empRoute)
-    .use("/role", roleRoute)
     .use("/in-department", indeptRoute)
     .use("/schedule", schedRoute)
-    
+    .use("/employee", empRoute)
+    .use("/role", roleRoute)
+
     .use("/patient", patientRoute)
+    .use("/patient-case", patientCaseRoute)
+    .use("/appointment-status", appointStRoute)
 
     .listen(process.env.PORT || 3000, () => {
       console.log("Server is listening");

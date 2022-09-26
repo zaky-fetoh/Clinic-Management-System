@@ -9,7 +9,7 @@ exports.RoleType = new gql.GraphQLObjectType({
         type: GraphQLObjectId
         },
         role_name: {
-            type: gwl.GraphQLString,
+            type: gql.GraphQLString,
         },
     }
 })

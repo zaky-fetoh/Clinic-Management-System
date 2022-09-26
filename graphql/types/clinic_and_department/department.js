@@ -1,6 +1,6 @@
 const gql = require("graphql");
 
-exports.DepartmentType = gql.GraphQLObjectType({
+exports.DepartmentType = new gql.GraphQLObjectType({
     name: "department",
     description: "department collection type",
     fields: {

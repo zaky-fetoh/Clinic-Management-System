@@ -1,7 +1,7 @@
 const gql = require("graphql")
 
 
-exports.ClinicType = gql.GraphQLObjectType({
+exports.ClinicType = new gql.GraphQLObjectType({
     name: "clinic",
     description: "type for the clinic collication",
     fields: {

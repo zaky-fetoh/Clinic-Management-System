@@ -2,7 +2,7 @@ const gql = require("graphql")
 
 
 
-exports.EmployeeType = gql.GraphQLObjectType({
+exports.EmployeeType = new gql.GraphQLObjectType({
     name: "employee",
     description: "employee collection Type",
     fields: {

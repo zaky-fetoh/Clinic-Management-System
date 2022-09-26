@@ -1,4 +1,6 @@
 const GraphQLDate = require("../DateType");
+const GraphQLObjectId = require("../ObjectIdType");
+
 const gql = require("graphql");
 
 
@@ -7,13 +9,13 @@ exports.HasRoleType = new gql.GraphQLObjectType({
     description: "has-role collection Type",
     fields: {
         _id: {
-            type: gql.GraphQLString,
+        type: GraphQLObjectId,
         },
         employee_id: {
-            type: gql.GraphQLString,
+            type: GraphQLObjectId,
         },
         role_id: {
-            type: gql.GraphQLString,
+            type: GraphQLObjectId,
         },
         time_from: {
             type: GraphQLDate,

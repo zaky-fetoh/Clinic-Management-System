@@ -1,5 +1,6 @@
 const gql = require("graphql")
 const GraphQLDate = require("../DateType");
+const GraphQLObjectId = require("../ObjectIdType");
 
 
 exports.indepartmentType = new gql.GraphQLObjectType({
@@ -7,13 +8,13 @@ exports.indepartmentType = new gql.GraphQLObjectType({
     description: "indepartment graphqltype",
     fields: {
         _id: {
-            type: gql.GraphQLString,
+            type: GraphQLObjectId,
         },
         department_id: {
-            type: gql.GraphQLString,
+            type: GraphQLObjectId,
         },
         employee_id: {
-            type: gql.GraphQLString,
+            type: GraphQLObjectId,
         },
         time_from: {
             type: GraphQLDate,

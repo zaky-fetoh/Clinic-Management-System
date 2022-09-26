@@ -1,4 +1,5 @@
 const gql = require("graphql")
+const GraphQLObjectId = require("../ObjectIdType");
 
 
 
@@ -7,7 +8,7 @@ exports.EmployeeType = new gql.GraphQLObjectType({
     description: "employee collection Type",
     fields: {
         _id: {
-            type: gql.GraphQLString,
+            type: GraphQLObjectId,
         },
         first_name: {
             type: gql.GraphQLString,

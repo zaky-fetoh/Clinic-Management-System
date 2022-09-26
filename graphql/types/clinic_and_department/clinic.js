@@ -1,4 +1,5 @@
 const gql = require("graphql")
+const GraphQLObjectId = require("../ObjectIdType");
 
 
 exports.ClinicType = new gql.GraphQLObjectType({
@@ -6,7 +7,7 @@ exports.ClinicType = new gql.GraphQLObjectType({
     description: "type for the clinic collication",
     fields: {
         _id: {
-            type: gql.GraphQLString,
+            type: GraphQLObjectId,
         },
         clinic_name: {
             type: gql.GraphQLString,

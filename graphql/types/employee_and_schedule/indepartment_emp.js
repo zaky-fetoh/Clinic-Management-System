@@ -23,7 +23,7 @@ exports.indepartmentType = new gql.GraphQLObjectType({
             type: GraphQLDate,
         },
         is_active: {
-            type: Boolean,
+            type: gql.GraphQLBoolean,
         },
     }
 });

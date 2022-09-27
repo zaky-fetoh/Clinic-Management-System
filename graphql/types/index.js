@@ -1,8 +1,6 @@
 /**
  * this file contain all gqltype in this dir
  */
-
-
 exports.GraphQLDate = require("./DateType");
 exports.GraphQLObjectId = require("./ObjectIdType");
 

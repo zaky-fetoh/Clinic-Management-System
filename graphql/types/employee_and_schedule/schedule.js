@@ -8,7 +8,7 @@ exports.ScheduleType = new gql.GraphQLObjectType({
     description: "schedule collection gqltype",
     fields: {
         _id: {
-            type:GraphQLObjectId,
+        type:GraphQLObjectId,
         },
         in_department_id: {
             type: GraphQLObjectId,

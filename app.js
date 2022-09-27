@@ -18,6 +18,9 @@ const appointStRoute = require("./routes/appointment_status");
 const appointRoute = require("./routes/appointment");
 const stHistRoute = require("./routes/status_history");
 
+const GraphQLSchema = require("./graphql/schema")
+const xgql = require("express-graphql");
+
 async function run() {
   try {
     await mongoose.connect(process.env.URI);
@@ -28,6 +31,10 @@ async function run() {
   }
   express()
     .use(morgan())
+    .use("/graphql", xgql.graphqlHTTP({
+      schema: GraphQLSchema,
+      graphiql: true, 
+    }))
     .use(express.json())
     .use(express.urlencoded())
     .use("/clinic", clinicRoute)

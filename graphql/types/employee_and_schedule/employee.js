@@ -8,7 +8,7 @@ exports.EmployeeType = new gql.GraphQLObjectType({
     description: "employee collection Type",
     fields: {
         _id: {
-            type: GraphQLObjectId,
+        type: GraphQLObjectId,
         },
         first_name: {
             type: gql.GraphQLString,

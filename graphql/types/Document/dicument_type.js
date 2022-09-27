@@ -1,5 +1,4 @@
 const GraphQLObjectId = require("../ObjectIdType");
-const GraphQLDate = require("../DateType");
 const gql = require("graphql");
 
 exports.DocumentTypeType = new gql.GraphQLObjectType({

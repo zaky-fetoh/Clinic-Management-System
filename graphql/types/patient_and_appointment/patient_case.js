@@ -2,7 +2,7 @@ const GraphQLObjectId = require("../ObjectIdType");
 const GraphQLDate = require("../DateType");
 const gql = require("graphql");
 
-exports.PatientCase = new gql.GraphQLObjectType({
+exports.PatientCaseType = new gql.GraphQLObjectType({
     name:"patient_case", 
     description:"patient Case type ofthe corresponding collection",
     fields:{

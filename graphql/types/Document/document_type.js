@@ -11,5 +11,4 @@ exports.DocumentTypeType = new gql.GraphQLObjectType({
         decument_name: {
             type: gql.GraphQLString,
           },
-    }
-})
+}})

@@ -7,8 +7,8 @@ exports.GraphQLObjectId = require("./ObjectIdType");
 exports.ClinicType = require("./clinic_and_department/clinic").ClinicType;
 exports.DepartmentType = require("./clinic_and_department/department").DepartmentType;
 
-exports.DocumentType = require("./Document/dicument").DocumentType;
-exports.DocumentTypeType = require("./Document/dicument_type").DocumentTypeType;
+exports.DocumentType = require("./Document/document").DocumentType;
+exports.DocumentTypeType = require("./Document/document_type").DocumentTypeType;
 
 exports.RoleType = require("./employee_and_schedule/role").RoleType;
 exports.HasRoleType = require("./employee_and_schedule/has_role").HasRoleType;

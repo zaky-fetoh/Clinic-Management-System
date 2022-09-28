@@ -6,7 +6,7 @@ module.exports = new gql.GraphQLScalarType({
     name:"ObjectId",
     description:"MONGODB Object Id",
     parseValue:(value)=>{
-        return mongoose.Types.ObjectId(value);
+        return new mongoose.Types.ObjectId(value);
     },
     serialize:(value)=>{
         return value.toString();

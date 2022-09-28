@@ -4,9 +4,9 @@ const GraphQLObjectId = require("../ObjectIdType");
 
 
 exports.indepartmentType = new gql.GraphQLObjectType({
-    name: "indepartment Type",
+    name: "indepartmentType",
     description: "indepartment graphqltype",
-    fields: {
+    fields: ()=>({
         _id: {
             type: GraphQLObjectId,
         },
@@ -25,5 +25,5 @@ exports.indepartmentType = new gql.GraphQLObjectType({
         is_active: {
             type: gql.GraphQLBoolean,
         },
-    }
+    })
 });

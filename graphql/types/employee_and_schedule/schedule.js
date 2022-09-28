@@ -6,7 +6,7 @@ const GraphQLObjectId = require("../ObjectIdType");
 exports.ScheduleType = new gql.GraphQLObjectType({
     name: "schedule",
     description: "schedule collection gqltype",
-    fields: {
+    fields: ()=>({
         _id: {
         type:GraphQLObjectId,
         },
@@ -22,5 +22,5 @@ exports.ScheduleType = new gql.GraphQLObjectType({
         time_end: {
             type: GraphQLDate,
         },
-    },
+    })
 });

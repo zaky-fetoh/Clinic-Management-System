@@ -1,9 +1,8 @@
-const empLogic = require("../controller/employee_schedule/employee");
-const hasRoleLogic = require("../controller/employee_schedule/has_role")
 const indeptLogic = require("../controller/employee_schedule/in_department")
+const hasRoleLogic = require("../controller/employee_schedule/has_role")
+const empLogic = require("../controller/employee_schedule/employee");
+
 const express = require("express");
-
-
 module.exports = express.Router()
     .post("/", empLogic.addEmployee)
     .get("/", empLogic.getAllEmployee)

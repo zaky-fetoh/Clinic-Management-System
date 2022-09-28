@@ -4,12 +4,12 @@ const GraphQLObjectId = require("../ObjectIdType")
 exports.RoleType = new gql.GraphQLObjectType({
     name: "role",
     description: "role type of role collection",
-    fields: {
+    fields: ()=>({
         _id: {
         type: GraphQLObjectId
         },
         role_name: {
             type: gql.GraphQLString,
         },
-    }
+    })
 })

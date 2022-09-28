@@ -35,7 +35,6 @@ exports.DepartmentType = new gql.GraphQLObjectType({
         getEmployees: {
             type: gql.GraphQLList(EmployeeType),
             resolve: async (parent) => {
-                console.log(parent._id);
                 const pipeline = [
                     { $match: { _id: parent._id } },
                     { $lookup: {
@@ -55,7 +54,6 @@ exports.DepartmentType = new gql.GraphQLObjectType({
                     employees: {$push: "$indepartments.employees"},
                     }}]
                 const out = await departModel.aggregate(pipeline)
-                console.log(JSON.stringify(out))
                 return out[0].employees;
             },
         }

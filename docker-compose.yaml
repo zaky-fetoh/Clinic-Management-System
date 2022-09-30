@@ -11,6 +11,7 @@ services:
   mongo:
     container_name: mongo
     image: mongo
-    volumes: -c:.cms:/etc/mongo
+    volumes: 
+      -c:.cms:/etc/mongo
     ports:
       - "27017:27017"

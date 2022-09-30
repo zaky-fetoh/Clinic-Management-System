@@ -31,7 +31,7 @@ async function run() {
   }
   express()
     .use(morgan())
-    .use("/graphiql", xgql.graphqlHTTP({
+    .use("/graphql", xgql.graphqlHTTP({
       schema: GraphQLSchema,
       graphiql: true, 
     }))

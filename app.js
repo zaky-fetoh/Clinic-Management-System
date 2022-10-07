@@ -36,7 +36,7 @@ async function run() {
       graphiql: true, 
     }))
     .use(express.json())
-    .use(express.urlencoded())
+    .use(express.urlencoded()) 
     .use("/clinic", clinicRoute)
     .use("/department", deptRoute)
 

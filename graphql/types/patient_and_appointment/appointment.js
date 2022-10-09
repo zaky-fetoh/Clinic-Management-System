@@ -2,6 +2,11 @@ const GraphQLObjectId = require("../ObjectIdType");
 const GraphQLDate = require("../DateType");
 const gql = require("graphql");
 
+const patientCaseType = require("./patient_case").PatientCaseType
+const patientCaseModel= require("../../../model/patient_and_appointment/patient_case")
+
+
+
 exports.appointmentType = new gql.GraphQLObjectType({
     name:"appointmant", 
     description:"appointmant graphqltype of appoint Collection",
@@ -27,5 +32,15 @@ exports.appointmentType = new gql.GraphQLObjectType({
           appointment_end_time: {
             type: GraphQLDate,
           },
+          /////////////////////
+          get_patient_case:{
+            type:patientCaseType,
+            resolve:async(parent)=>{
+              return await patientCaseModel.find({
+                _id: parent.patient_case_id,
+              })
+            }
+          },
+
     }
 })

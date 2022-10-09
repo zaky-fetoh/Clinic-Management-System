@@ -5,6 +5,9 @@ const GraphQLObjectId = require("../ObjectIdType");
 const ScheduleType = require("./schedule").ScheduleType
 const ScheduleModel= require("../../../model/employee_and_schadule/schedule")
 
+const appoinType = require("../patient_and_appointment/appointment").PatientType
+const appoiModel= require("../../../model/patient_and_appointment/appointment")
+
 
 
 exports.indepartmentType = new gql.GraphQLObjectType({
@@ -38,6 +41,15 @@ exports.indepartmentType = new gql.GraphQLObjectType({
                 })
             }
         },
-        
+        get_appointment:{
+            type: appoinType,
+            resolve:async(parent)=>{
+                return await appoiModel.find({
+                    in_department_id: parent._id,
+                })
+            },
+        }
+
+
     })
 });

@@ -2,6 +2,12 @@ const GraphQLObjectId = require("../ObjectIdType");
 const GraphQLDate = require("../DateType");
 const gql = require("graphql");
 
+const patientType = require("./patient").PatientType;
+const patientModel= require("../../../model/patient_and_appointment/patient");
+const { getGraphQLParams } = require("express-graphql");
+
+
+
 exports.PatientCaseType = new gql.GraphQLObjectType({
     name:"patient_case", 
     description:"patient Case type ofthe corresponding collection",
@@ -27,5 +33,14 @@ exports.PatientCaseType = new gql.GraphQLObjectType({
           amount_paid: {
             type: gql.GraphQLFloat,
           },
+          ///////////
+          patient_info:{
+            type: patientType,
+            resolve: async(parent)=>{ 
+              return await patientModel.findOne({
+                _id: parent.patient_id,
+              })
+            }
+          }
     }
 })

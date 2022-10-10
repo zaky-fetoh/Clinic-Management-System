@@ -4,6 +4,7 @@ const gql = require("graphql");
 
 const patientCaseType = require("./patient_case").PatientCaseType
 const patientCaseModel= require("../../../model/patient_and_appointment/patient_case")
+const appointmentStatusModel= require("../../../model/patient_and_appointment/appointment_status")
 
 
 
@@ -41,6 +42,13 @@ exports.appointmentType = new gql.GraphQLObjectType({
               })
             }
           },
-
+          get_status_name:{
+            type:gql.GraphQLString,
+            resolve:async(parent)=>{
+              return (await appointmentStatusModel.findOne({
+                _id: parent.appointment_status_id
+              })).status_name
+            }
+          },
     }
 })

@@ -20,6 +20,7 @@ const stHistRoute = require("./routes/status_history");
 
 const GraphQLSchema = require("./graphql/schema")
 const xgql = require("express-graphql");
+const gqlContext = require("./graphql/db_context")
 
 async function run() {
   try {
@@ -34,7 +35,7 @@ async function run() {
     .use("/graphql", xgql.graphqlHTTP({
       schema: GraphQLSchema,
       graphiql: true, 
-      /////////add Context
+      context:gqlContext,
     }))
     .use(express.json())
     .use(express.urlencoded())

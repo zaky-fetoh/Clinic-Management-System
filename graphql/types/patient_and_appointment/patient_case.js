@@ -4,7 +4,6 @@ const gql = require("graphql");
 
 const patientType = require("./patient").PatientType;
 const patientModel= require("../../../model/patient_and_appointment/patient");
-const { getGraphQLParams } = require("express-graphql");
 
 
 

@@ -34,6 +34,7 @@ async function run() {
     .use("/graphql", xgql.graphqlHTTP({
       schema: GraphQLSchema,
       graphiql: true, 
+      /////////add Context
     }))
     .use(express.json())
     .use(express.urlencoded())

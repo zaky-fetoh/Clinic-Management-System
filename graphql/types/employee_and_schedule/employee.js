@@ -35,7 +35,7 @@ exports.EmployeeType = new gql.GraphQLObjectType({
             type: gql.GraphQLBoolean,
         },
         //Queries
-        getIndepartment:{
+        get_indepartment:{
             type: gql.GraphQLList(
             require("../index").IndepartmentType),
             resolve:async(parent,_,{indepartmentModel})=>{
@@ -44,7 +44,7 @@ exports.EmployeeType = new gql.GraphQLObjectType({
                 })
             },
         },
-        HasRole:{
+        get_HasRole:{
             type:gql.GraphQLList(
             require("../index").HasRoleType),
             resolve:async(parent,_,{hasRoleModel})=>{

@@ -23,7 +23,11 @@ exports.appointmentStatusType = new gql.GraphQLObjectType({
         get_status_history:{
             type:gql.GraphQLList(
             require("../index").StatusHistoryType),
-            resolve:async(parent,_,{s})
-        }
+            resolve:async(parent,_,{statusModel})=>{
+                return statusModel.find({
+                    appointment_status_id:parent._id,
+                })
+            }},
+        
     })
 })

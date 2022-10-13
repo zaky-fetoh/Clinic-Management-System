@@ -1,14 +1,6 @@
 const GraphQLObjectId = require("../ObjectIdType");
 const gql = require("graphql")
 
-const indeptType = require("./indepartment_emp").indepartmentType;
-const indeptModel= require("../../../model/employee_and_schadule/indepartment_emp");
-
-const hasRoleType = require("./has_role").HasRoleType;
-const hasRoleModel= require("../../../model/employee_and_schadule/has_role");
-const { HasRoleType } = require("./has_role");
-const { ClinicType } = require("../clinic_and_department/clinic");
-
 
 
 exports.EmployeeType = new gql.GraphQLObjectType({
@@ -44,16 +36,18 @@ exports.EmployeeType = new gql.GraphQLObjectType({
         },
         //Queries
         getIndepartment:{
-            type: gql.GraphQLList(indeptType),
-            resolve:async(parent)=>{
-                return await indeptModel.find({
+            type: gql.GraphQLList(
+            require("../index").IndepartmentType),
+            resolve:async(parent,_,{indepartmentModel})=>{
+                return await indepartmentModel.find({
                     employee_id: parent._id,
                 })
             },
         },
         HasRole:{
-            type:gql.GraphQLList(HasRoleType),
-            resolve:async(parent)=>{
+            type:gql.GraphQLList(
+            require("../index").HasRoleType),
+            resolve:async(parent,_,{hasRoleModel})=>{
                 return await hasRoleModel.find({
                     employee_id:parent._id,
                 });

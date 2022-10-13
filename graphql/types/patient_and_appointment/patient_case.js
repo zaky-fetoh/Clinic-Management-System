@@ -2,9 +2,6 @@ const GraphQLObjectId = require("../ObjectIdType");
 const GraphQLDate = require("../DateType");
 const gql = require("graphql");
 
-const patientType = require("./patient").PatientType;
-const patientModel= require("../../../model/patient_and_appointment/patient");
-
 
 
 exports.PatientCaseType = new gql.GraphQLObjectType({
@@ -34,8 +31,8 @@ exports.PatientCaseType = new gql.GraphQLObjectType({
           },
           ///////////
           patient_info:{
-            type: patientType,
-            resolve: async(parent)=>{ 
+            type: require('../index').PatientType,
+            resolve: async(parent,_,{patientModel})=>{ 
               return await patientModel.findOne({
                 _id: parent.patient_id,
               })

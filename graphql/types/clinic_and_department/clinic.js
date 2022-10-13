@@ -1,8 +1,6 @@
 const GraphQLObjectId = require("../ObjectIdType");
 const gql = require("graphql")
 
-const departmentModel = require("../../../model/clinic_and_department/department");
-const DepartmentType = require("./department").DepartmentType
 
 exports.ClinicType = new gql.GraphQLObjectType({
     name: "clinic",
@@ -22,8 +20,10 @@ exports.ClinicType = new gql.GraphQLObjectType({
         },
         ///Queries
         getDepartments:{
-            type: gql.GraphQLList(DepartmentType),
-            resolve:async(parent)=>{
+            type: gql.GraphQLList(
+            require("../index").DepartmentType
+            ),
+            resolve:async(parent,_,{departmentModel})=>{
                 return await departmentModel.find({
                     clinic_id: parent._id
                 })

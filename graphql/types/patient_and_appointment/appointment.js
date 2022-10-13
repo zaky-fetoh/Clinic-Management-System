@@ -2,11 +2,6 @@ const GraphQLObjectId = require("../ObjectIdType");
 const GraphQLDate = require("../DateType");
 const gql = require("graphql");
 
-const patientCaseType = require("./patient_case").PatientCaseType
-const patientCaseModel= require("../../../model/patient_and_appointment/patient_case")
-const appointmentStatusModel= require("../../../model/patient_and_appointment/appointment_status")
-
-
 
 exports.appointmentType = new gql.GraphQLObjectType({
     name:"appointmant", 
@@ -35,19 +30,19 @@ exports.appointmentType = new gql.GraphQLObjectType({
           },
           /////////////////////
           get_patient_case:{
-            type:patientCaseType,
-            resolve:async(parent)=>{
+            type:require("../index").PatientCaseType,
+            resolve:async(parent, _, {patientCaseModel})=>{
               return await patientCaseModel.find({
                 _id: parent.patient_case_id,
               })
             }
           },
           get_status_name:{
-            type:gql.GraphQLString,
-            resolve:async(parent)=>{
-              return (await appointmentStatusModel.findOne({
+            type: require("../index").AppointmentStatusType,
+            resolve:async(parent,_, {appointmentStatusModel})=>{
+              return await appointmentStatusModel.findOne({
                 _id: parent.appointment_status_id
-              })).status_name
+              })
             }
           },
     }

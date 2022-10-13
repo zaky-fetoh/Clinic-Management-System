@@ -1,18 +1,10 @@
 const GraphQLObjectId = require("../ObjectIdType");
 const gql = require("graphql");
 
-const clinicModel = require("../../../model/clinic_and_department/clinic");
-const departModel = require("../../../model/clinic_and_department/department");
-const ClinicType = require("./clinic").ClinicType;
-
-
-const EmployeeType = require("../employee_and_schedule/employee").EmployeeType
-
-
 
 exports.DepartmentType = new gql.GraphQLObjectType({
-    name: "department",
     description: "department collection type",
+    name: "department",
     fields: () => ({
         _id: {
             type: GraphQLObjectId,
@@ -24,17 +16,17 @@ exports.DepartmentType = new gql.GraphQLObjectType({
             type: GraphQLObjectId,
         },
         ///Queries
-        // getClinic: {
-        //     type: ClinicType,
-        //     resolve: async (parent) => {
-        //         return await clinicModel.findOne({
-        //             _id: parent.clinic_id,
-        //         })
-        //     },
-        // },
+        getClinic: {
+            type: require("../index").ClinicType,
+            resolve: async (parent,_, {clinicModel}) => {
+                return await clinicModel.findOne({
+                    _id: parent.clinic_id,
+                })
+            },
+        },
         getEmployees: {
-            type: gql.GraphQLList(EmployeeType),
-            resolve: async (parent) => {
+            type: gql.GraphQLList(require("../index").EmployeeType),
+            resolve: async (parent,_, {departmentModel}) => {
                 const pipeline = [
                     { $match: { _id: parent._id } },
                     { $lookup: {
@@ -53,7 +45,7 @@ exports.DepartmentType = new gql.GraphQLObjectType({
                     {$group:{ _id: "$_id",
                     employees: {$push: "$indepartments.employees"},
                     }}]
-                const out = await departModel.aggregate(pipeline)
+                const out = await departmentModel.aggregate(pipeline)
                 return out[0].employees;
             },
         }

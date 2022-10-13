@@ -23,6 +23,8 @@ const xgql = require("express-graphql");
 const gqlContext = require("./graphql/db_context")
 
 async function run() {
+
+  console.log("hello");
   try {
     await mongoose.connect(process.env.URI);
     console.log("MONGODB is connected");
@@ -34,8 +36,8 @@ async function run() {
     .use(morgan())
     .use("/graphql", xgql.graphqlHTTP({
       schema: GraphQLSchema,
-      graphiql: true, 
       context:gqlContext,
+      graphiql: true, 
     }))
     .use(express.json())
     .use(express.urlencoded())

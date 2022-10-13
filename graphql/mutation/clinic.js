@@ -1,10 +1,14 @@
 const gql = require("graphql");
-const { ClinicType, GraphQLObjectId } = require("../types/index")
+
+const ClinicType = require("../types/clinic_and_department/clinic").ClinicType;
+const GraphQLObjectId  = require("../types/ObjectIdType");
+
+const clinicModel = require("../../model/clinic_and_department/clinic")
 
 
-exports.ClinicMutation = new gql.GraphQLObjectType({
+module.exports = new gql.GraphQLObjectType({
     name: "ClinicOPeration",
-    fields: {
+    fields: ()=>({
         add: {
             description: "add a clinic to clinic Collection",
             type: ClinicType,
@@ -19,7 +23,7 @@ exports.ClinicMutation = new gql.GraphQLObjectType({
                     type: gql.GraphQLString,
                 },
             },
-            resolve: async (parent, args, { clinicModel }) => {
+            resolve: async (parent, args) => {
                 return await clinicModel.create(args);
             },
         },
@@ -40,7 +44,7 @@ exports.ClinicMutation = new gql.GraphQLObjectType({
                     type: gql.GraphQLString,
                 },
             },
-            resolve: async (parent, args, { clinicModel }) => {
+            resolve: async (parent, args, ) => {
                 const clinic = await clinicModel.findOne(
                     {
                         _id: args._id,
@@ -54,5 +58,5 @@ exports.ClinicMutation = new gql.GraphQLObjectType({
                 return clinic;
             }
         }
-    }
+    })
 })

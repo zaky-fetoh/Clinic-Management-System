@@ -5,7 +5,7 @@ const GraphQLObjectId = require("../ObjectIdType");
 const ScheduleType = require("./schedule").ScheduleType
 const ScheduleModel= require("../../../model/employee_and_schadule/schedule")
 
-const appoinType = require("../patient_and_appointment/appointment").PatientType
+const appoinType = require("../patient_and_appointment/appointment").appointmentType
 const appoiModel= require("../../../model/patient_and_appointment/appointment")
 
 

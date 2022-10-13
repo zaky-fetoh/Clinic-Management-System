@@ -13,7 +13,7 @@ exports.appointmentType = new gql.GraphQLObjectType({
     description:"appointmant graphqltype of appoint Collection",
     fields:{
         _id: {
-            type: GraphQLObjectId,
+          type: GraphQLObjectId,
           },
           patient_case_id: {
             type: GraphQLObjectId,

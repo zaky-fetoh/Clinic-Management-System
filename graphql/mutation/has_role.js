@@ -43,13 +43,13 @@ module.exports = new gql.GraphQLObjectType({
             },
                 HasRoleArgs),
             resolve: async (parent, args, { hasRoleModel }) => {
-                const hasrole = hasRoleModel.findOne({
+                const hasrole = await hasRoleModel.findOne({
                     _id: args._id,
                 }, {__v:0});
                 for (let att in hasrole._doc)
                     if (att !== "_id" && args[att])
                         hasrole[att] = args[att];
-                hasrole.save();
+                await hasrole.save();
                 return hasrole;
             }
         },

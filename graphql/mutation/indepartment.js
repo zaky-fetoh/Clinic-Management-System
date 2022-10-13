@@ -43,13 +43,13 @@ module.exports = new gql.GraphQLObjectType({
             },
                 indeptArgs),
             resolve: async (parent, args, { indepartmentModel }) => {
-                const indept = indepartmentModel.findOne({
+                const indept = await indepartmentModel.findOne({
                     _id: args._id,
                 }, { __v: 0 });
                 for (let att in indept._doc)
                     if (att !== "_id" && args[att])
                         indept[att] = args[att];
-                indept.save();
+                await indept.save();
                 return indept;
             }
         },

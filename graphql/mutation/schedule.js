@@ -52,7 +52,7 @@ module.exports = new gql.GraphQLObjectType({
                 for(let att in sch._doc)
                 if(att!=="_id" && args[att])
                 sch[att] = args[att]; 
-                sch.save(); 
+                await sch.save(); 
                 return sch;
             },
         },

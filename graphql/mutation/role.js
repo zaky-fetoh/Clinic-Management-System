@@ -33,7 +33,7 @@ module.exports = new gql.GraphQLObjectType({
                 for(let att in role._doc)
                 if(att !== "_id" && args[att])
                 role[att] = args[att];
-                role.save();
+                await role.save();
                 return role;
         }},
         delete:{

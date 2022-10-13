@@ -49,13 +49,13 @@ module.exports = new gql.GraphQLObjectType({
                 _id: {type: gql.GraphQLNonNull(GraphQLObjectId)}
             }, EmployeeArgs),
             resolve: async (parent, args, { employeeModel }) => {
-                const emp = employeeModel.findOne({
+                const emp = await employeeModel.findOne({
                     _id: args._id,
                 }, { __v: 0, password: 0});
                 for (const att in emp._doc)
                     if (att !== "_id" && args[att])
                         emp[att] = args[att];
-                emp.save();
+                await emp.save();
                 return emp;
             },
         },

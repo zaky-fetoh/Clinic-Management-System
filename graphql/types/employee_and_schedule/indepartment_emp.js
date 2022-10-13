@@ -26,6 +26,15 @@ exports.indepartmentType = new gql.GraphQLObjectType({
             type: gql.GraphQLBoolean,
         },
         ////
+        get_department:{
+            type: require("../index").DepartmentType,
+            resolve:async(parent,_,{departmentModel})=>{
+                return await departmentModel.findOne({
+                    _id: parent.department_id,
+                });
+            }
+        },
+
         get_employee:{
             type: require("../index").EmployeeType,
             resolve:async(parent,_, {employeeModel})=>{

@@ -24,6 +24,16 @@ exports.DepartmentType = new gql.GraphQLObjectType({
                 })
             },
         },
+        get_indepartment:{
+            type:gql.GraphQLList(
+                require("../index").IndepartmentType,
+            ),
+            resolve:async(parent,_,{indepartmentModel})=>{
+                return await indepartmentModel.find({
+                    department_id:parent._id,
+                });
+            }
+        },
         getEmployees: {
             type: gql.GraphQLList(require("../index").EmployeeType),
             resolve: async (parent,_, {departmentModel}) => {

@@ -2,11 +2,18 @@ const gql = require("graphql");
 
 const clinicMutation = require("./clinic");
 const departMutation = require("./department")
+
 const employeeMutation= require("./employee")
 const hasRoleMutation= require("./has_role");
 const indeptMutation = require("./indepartment");
 const roleMutation   = require("./role");
 const scheduleMutation = require("./schedule");
+
+const appointStatusMutation = require("./appointment_status")
+const patientCaseMutation = require("./patient_case");
+const appoitmentMutation = require("./appointment"); 
+const stHistMutation = require("./status_history"); 
+const patientMutation = require("./patient");
 
 
 module.exports = new gql.GraphQLObjectType({
@@ -39,6 +46,27 @@ module.exports = new gql.GraphQLObjectType({
         schedule:{
             type:scheduleMutation,
             resolve:()=>scheduleMutation,
-        }, 
+        },
+        appointment_status:{
+            type:appointStatusMutation,
+            resolve:()=>appointStatusMutation,
+        },
+        patient_case:{
+            type:patientCaseMutation,
+            resolve:()=>patientCaseMutation,
+        },
+        appointment:{
+            type:appoitmentMutation,
+            resolve:()=>appoitmentMutation,
+        },
+        stutus_history:{
+            type:stHistMutation,
+            resolve:()=>stHistMutation,
+        },
+        patient:{
+            type:patientMutation,
+            resolve:()=>patientMutation,
+        },
+
     })
 })

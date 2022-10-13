@@ -21,7 +21,7 @@ exports.StatusHistoryType = new gql.GraphQLObjectType({
         },
 
         get_appointment:{
-            type:gql.require("../index").AppointmentType,
+            type:require("../index").AppointmentType,
             resolve:async(parent,_,{appointmentModel})=>{
                 return await appointmentModel.find({
                     _id:parent.appointment_id,

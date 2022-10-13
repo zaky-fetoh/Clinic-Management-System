@@ -6,7 +6,7 @@ const gql = require("graphql");
 exports.appointmentType = new gql.GraphQLObjectType({
     name:"appointmant", 
     description:"appointmant graphqltype of appoint Collection",
-    fields:{
+    fields:()=>({
         _id: {
           type: GraphQLObjectId,
           },
@@ -42,16 +42,22 @@ exports.appointmentType = new gql.GraphQLObjectType({
             resolve:async(parent, _, {patientCaseModel})=>{
               return await patientCaseModel.findOne({
                 _id: parent.patient_case_id,
-              })
-            }
+              })}
           },
-          get_status_name:{
+          get_appointment_status:{
             type: require("../index").AppointmentStatusType,
             resolve:async(parent,_, {appointmentStatusModel})=>{
               return await appointmentStatusModel.findOne({
                 _id: parent.appointment_status_id
-              })
-            }
+              })}
           },
-    }
+          get_status_history:{
+            type: gql.GraphQLList(
+            require("../index").StatusHistoryType), 
+            resolve:async(parent,_,{statusHistoryModel})=>{
+              return await statusHistoryModel.find({
+                appointment_id:parent._id
+              })}
+          }
+    })
 })

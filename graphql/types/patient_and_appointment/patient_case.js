@@ -7,7 +7,7 @@ const gql = require("graphql");
 exports.PatientCaseType = new gql.GraphQLObjectType({
     name:"patient_case", 
     description:"patient Case type ofthe corresponding collection",
-    fields:{
+    fields:()=>({
         _id: {
             type: GraphQLObjectId,
           },
@@ -30,7 +30,7 @@ exports.PatientCaseType = new gql.GraphQLObjectType({
             type: gql.GraphQLFloat,
           },
           ///////////
-          patient_info:{
+          get_patient:{
             type: require('../index').PatientType,
             resolve: async(parent,_,{patientModel})=>{ 
               return await patientModel.findOne({
@@ -47,6 +47,6 @@ exports.PatientCaseType = new gql.GraphQLObjectType({
               })
             }
           },
-          
-    }
+
+    })
 })

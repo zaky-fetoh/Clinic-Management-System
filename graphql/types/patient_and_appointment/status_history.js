@@ -5,7 +5,7 @@ const gql = require("graphql");
 exports.StatusHistoryType = new gql.GraphQLObjectType({
     name: "StatusHistoryType",
     description: "status History Type",
-    fields: {
+    fields: ()=>({
         _id: {
         type: GraphQLObjectId,
         },
@@ -21,5 +21,5 @@ exports.StatusHistoryType = new gql.GraphQLObjectType({
         details: {
             type: gql.GraphQLString,
         },
-    }
+    })
 })

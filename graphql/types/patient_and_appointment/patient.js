@@ -15,4 +15,13 @@ exports.PatientType = new gql.GraphQLObjectType({
             type: gql.GraphQLString, 
         },
     },
+    get_patient_cases:{
+        type:gql.GraphQLList(
+        require("../index").PatientCaseType),
+        resolve:async(parent,_,{patientCaseModel})=>{
+            return await patientCaseModel.find({
+                patient_id: parent._id,
+            });
+        }
+    }
 })

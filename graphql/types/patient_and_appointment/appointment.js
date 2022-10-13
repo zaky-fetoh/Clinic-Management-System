@@ -29,10 +29,18 @@ exports.appointmentType = new gql.GraphQLObjectType({
             type: GraphQLDate,
           },
           /////////////////////
+          get_indepartment:{
+            type: require("../index").IndepartmentType,
+            resolve:async(parent,_,{indepartmentModel})=>{
+              return await indepartmentModel.findOne({
+                _id: parent.in_department_id, 
+              })
+            }
+          },
           get_patient_case:{
             type:require("../index").PatientCaseType,
             resolve:async(parent, _, {patientCaseModel})=>{
-              return await patientCaseModel.find({
+              return await patientCaseModel.findOne({
                 _id: parent.patient_case_id,
               })
             }

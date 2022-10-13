@@ -37,6 +37,16 @@ exports.PatientCaseType = new gql.GraphQLObjectType({
                 _id: parent.patient_id,
               })
             }
-          }
+          },
+          get_appointment:{
+            type:gql.GraphQLList(
+              require("../index").AppointmentType),
+            resolve:async(parent,_,{appointmentModel})=>{
+              return await appointmentModel.find({
+                patient_case_id: parent._id,
+              })
+            }
+          },
+          
     }
 })

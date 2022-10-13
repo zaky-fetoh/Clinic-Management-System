@@ -1,7 +1,6 @@
 const gql = require("graphql");
 
 const {
-    GraphQLDate,
     PatientType,
     GraphQLObjectId,
 } = require("../types/index");

@@ -25,13 +25,23 @@ exports.HasRoleType = new gql.GraphQLObjectType({
         is_active: {
             type: gql.GraphQLBoolean,
         },
-        role_name:{
+        get_employee:{
+            type: require("../index").EmployeeType,
+            resolve:async(parent,_, {employeeModel})=>{
+                return await employeeModel.findOne({
+                    _id: parent.employee_id,
+                })
+            }
+        },
+
+        get_role:{
             type: require("../index").RoleType,
             resolve: async(parent,_,{roleModel})=>{
                 return await roleModel.findOne({
                     _id: parent.role_id,
                 })
             },
-        }
+        },
+
     })
 })

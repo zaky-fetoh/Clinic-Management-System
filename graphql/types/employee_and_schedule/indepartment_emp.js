@@ -26,8 +26,17 @@ exports.indepartmentType = new gql.GraphQLObjectType({
             type: gql.GraphQLBoolean,
         },
         ////
+        get_employee:{
+            type: require("../index").EmployeeType,
+            resolve:async(parent,_, {employeeModel})=>{
+                return await employeeModel.findOne({
+                    _id: parent.employee_id,
+                })
+            }
+        },
         get_schedule:{
-            type: require("../index").ScheduleType,
+            type: gql.GraphQLList(
+            require("../index").ScheduleType),
             resolve:async(parent, _,{scheduleModel})=>{
                 return await scheduleModel.find({
                     in_department_id: parent._id,
@@ -35,7 +44,8 @@ exports.indepartmentType = new gql.GraphQLObjectType({
             }
         },
         get_appointment:{
-            type: require("../index").AppointmentType,
+            type: gql.GraphQLList(
+            require("../index").AppointmentType),
             resolve:async(parent,_, {appointmentModel})=>{
                 return await appointmentModel.find({
                     in_department_id: parent._id,

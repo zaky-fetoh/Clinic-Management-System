@@ -22,5 +22,13 @@ exports.ScheduleType = new gql.GraphQLObjectType({
         time_end: {
             type: GraphQLDate,
         },
+        get_indepartment:{
+            type: require("../index").IndepartmentType,
+            resolve: async(parent,_,{indepartmentModel})=>{
+                return await indepartmentModel.findOne({
+                    _id: parent.in_department_id,
+                })
+            }
+        }
     })
 });

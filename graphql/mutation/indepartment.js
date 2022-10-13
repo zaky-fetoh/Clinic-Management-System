@@ -1,6 +1,6 @@
 const gql = require("graphql");
 
-const { 
+const {
     IndepartmentType,
     GraphQLObjectId,
     GraphQLDate } = require("../types/index");
@@ -24,15 +24,43 @@ const indeptArgs = {
 }
 
 module.exports = new gql.GraphQLObjectType({
-    name:"indepartmentMuation", 
-    description:"indepartment mutaion add, dlt, update, mutations", 
-    fields:{
-        add:{
-            type:IndepartmentType, 
-            args: Object.assign({}, indeptArgs), 
-            resolve:async(parent, args, {in})
+    name: "indepartmentMuation",
+    description: "indepartment mutaion add, dlt, update, mutations",
+    fields: {
+        add: {
+            type: IndepartmentType,
+            args: Object.assign({}, indeptArgs),
+            resolve: async (parent, args, { indepartmentModel }) => {
+                return await indepartmentModel.create(args);
+            },
         },
-        update:{},
-        delete:{},
-    }
+        update: {
+            type: IndepartmentType,
+            args: Object.assign({
+                _id: {
+                    type: gql.GraphQLNonNull(GraphQLObjectId)
+                }
+            },
+                indeptArgs),
+            resolve: async (parent, args, { indepartmentModel }) => {
+                const indept = indepartmentModel.findOne({
+                    _id: args._id,
+                }, { __v: 0 });
+                for (let att in indept._doc)
+                    if (att !== "_id" && args[att])
+                        indept[att] = args[att];
+                indept.save();
+                return indept;
+            }
+        },
+        delete: {
+            type: gql.GraphQLInt, 
+            args: Object.assign({
+                _id: {type: GraphQLObjectId}
+            }, indeptArgs),
+            resolve:async(parent, args, {indepartmentModel})=>{
+                return (await indepartmentModel.deleteMany(args)).deletedCount;
+            },
+        },
+    },
 })

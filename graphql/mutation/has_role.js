@@ -45,7 +45,7 @@ module.exports = new gql.GraphQLObjectType({
             resolve: async (parent, args, { hasRoleModel }) => {
                 const hasrole = hasRoleModel.findOne({
                     _id: args._id,
-                });
+                }, {__v:0});
                 for (let att in hasrole._doc)
                     if (att !== "_id" && args[att])
                         hasrole[att] = args[att];

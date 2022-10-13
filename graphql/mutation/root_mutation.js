@@ -1,16 +1,19 @@
-const gql = require("graphql"); 
+const gql = require("graphql");
+
 const clinicMutation = require("./clinic");
+const departMutation = require("./department")
 
-
-
-console.log("Hello");
 
 module.exports = new gql.GraphQLObjectType({
-    name: "root_mutation", 
-    fields:()=>({
-        clinic:{
+    name: "root_mutation",
+    fields: () => ({
+        clinic: {
             type: clinicMutation,
-            resolve:()=> clinicMutation,
+            resolve: () => clinicMutation,
         },
+        department:{
+            type: departMutation,
+            resolve:()=>departMutation, 
+        }
     })
 })

@@ -5,6 +5,17 @@ const GraphQLObjectId  = require("../types/ObjectIdType");
 
 const clinicModel = require("../../model/clinic_and_department/clinic")
 
+const clinicArgType  = {
+        clinic_name: {
+            type: gql.GraphQLString,
+        },
+        address: {
+            type: gql.GraphQLString,
+        },
+        details: {
+            type: gql.GraphQLString,
+        },
+}
 
 module.exports = new gql.GraphQLObjectType({
     name: "ClinicOPeration",
@@ -12,17 +23,7 @@ module.exports = new gql.GraphQLObjectType({
         add: {
             description: "add a clinic to clinic Collection",
             type: ClinicType,
-            args: {
-                clinic_name: {
-                    type: gql.GraphQLString,
-                },
-                address: {
-                    type: gql.GraphQLString,
-                },
-                details: {
-                    type: gql.GraphQLString,
-                },
-            },
+            args: Object.assign({},clinicArgType),
             resolve: async (parent, args) => {
                 return await clinicModel.create(args);
             },
@@ -30,20 +31,11 @@ module.exports = new gql.GraphQLObjectType({
         update: {
             description: "update clinic item in the clinic collection",
             type: ClinicType,
-            args: {
-                _id: {
-                    type: GraphQLObjectId,
-                },
-                clinic_name: {
-                    type: gql.GraphQLString,
-                },
-                address: {
-                    type: gql.GraphQLString,
-                },
-                details: {
-                    type: gql.GraphQLString,
-                },
-            },
+            args: Object.assign({
+                _id:{
+                    type: gql.GraphQLNonNull(GraphQLObjectId),
+                }
+            },clinicArgType),
             resolve: async (parent, args, ) => {
                 const clinic = await clinicModel.findOne(
                     {

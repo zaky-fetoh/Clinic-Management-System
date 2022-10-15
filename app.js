@@ -24,7 +24,7 @@ const gqlContext = require("./graphql/db_context")
 
 async function run() {
 
-  console.log("Setting BD connection");
+  console.log("Setting BD connection.");
   try {
     await mongoose.connect(process.env.URI);
     console.log("MONGODB is connected");

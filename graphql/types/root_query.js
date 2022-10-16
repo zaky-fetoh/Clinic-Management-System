@@ -4,34 +4,38 @@ const types = require("./index");
 module.exports = new gql.GraphQLObjectType({
     name: "root_query",
     fields: {
-        get_all_clinics: {
+        get_clinics: {
             type: gql.GraphQLList(types.ClinicType),
+            args: types.ClinicFields,
             resolve: async (parent, args, {clinicModel}) => {
-                return await clinicModel.find({})
+                return await clinicModel.find(args)
             }
         },
-        get_all_employees:{
+        get_employees:{
             type:gql.GraphQLList(types.EmployeeType),
-            resolve:async(parent, _, {employeeModel})=>{
-                return await employeeModel.find({});
+            args: types.EmployeeFields, 
+            resolve:async(parent, args, {employeeModel})=>{
+                return await employeeModel.find(args);
             }
         },
-        get_all_roles:{
+        get_roles:{
             type:gql.GraphQLList(types.RoleType),
-            resolve:async(parent,_,{roleModel})=>{
-                return await roleModel.find({});
+            args: types.RoleFields,
+            resolve:async(parent,args,{roleModel})=>{
+                return await roleModel.find(args);
             }
         },
-        get_all_patient:{
+        get_patient:{
             type: gql.GraphQLList(types.PatientType),
-            resolve:async(parent,_, {patientModel})=>{
-                return await patientModel.find({});
+            resolve:async(parent, args, {patientModel})=>{
+                return await patientModel.find(args);
             }
         },
-        get_all_appointment:{
+        get_appointment:{
             type:gql.GraphQLList(types.AppointmentType),
-            resolve:async(parent, _, {appointmentModel})=>{
-                return await appointmentModel.find({}); 
+            args: types.AppointmentFields,
+            resolve:async(parent, args, {appointmentModel})=>{
+                return await appointmentModel.find(args); 
             }
         },
     }

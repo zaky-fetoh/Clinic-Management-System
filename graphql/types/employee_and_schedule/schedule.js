@@ -27,10 +27,10 @@ exports.ScheduleType = new gql.GraphQLObjectType({
     fields: ()=>Object.assign({
         get_indepartment:{
             type: require("../index").IndepartmentType,
+            args: require("../index").IndepartmentFields,
             resolve: async(parent,_,{indepartmentModel})=>{
-                return await indepartmentModel.findOne({
-                    _id: parent.in_department_id,
-                })
+                return await indepartmentModel.findOne(Object.assign(args,{
+                    _id: parent.in_department_id,}))
             }
         }
     },exports.ScheduleFields)

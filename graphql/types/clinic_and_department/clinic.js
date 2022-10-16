@@ -26,10 +26,10 @@ exports.ClinicType = new gql.GraphQLObjectType({
             type: gql.GraphQLList(
                 require("../index").DepartmentType
             ),
-            resolve: async (parent, _, { departmentModel }) => {
-                return await departmentModel.find({
-                    clinic_id: parent._id
-                })
+            args: require("../index").DepartmentFields, 
+            resolve: async (parent, args, { departmentModel }) => {
+                return await departmentModel.find(Object.assign(args,{
+                    clinic_id: parent._id}))
             },
         }
     },exports.ClinicFields),

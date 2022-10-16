@@ -33,33 +33,39 @@ exports.appointmentType = new gql.GraphQLObjectType({
           /////////////////////
           get_indepartment:{
             type: require("../index").IndepartmentType,
-            resolve:async(parent,_,{indepartmentModel})=>{
-              return await indepartmentModel.findOne({
+            args: require("../index").IndepartmentFields,
+            resolve:async(parent,args,{indepartmentModel})=>{
+              return await indepartmentModel.findOne(Object.assign(args,{
                 _id: parent.in_department_id, 
-              })
+              }))
             }
           },
           get_patient_case:{
             type:require("../index").PatientCaseType,
-            resolve:async(parent, _, {patientCaseModel})=>{
-              return await patientCaseModel.findOne({
+            args: require("../index").PatientCaseFields,
+            resolve:async(parent, args, {patientCaseModel})=>{
+              return await patientCaseModel.findOne(Object.assign(args,{
                 _id: parent.patient_case_id,
-              })}
+              }))}
           },
           get_appointment_status:{
             type: require("../index").AppointmentStatusType,
-            resolve:async(parent,_, {appointmentStatusModel})=>{
-              return await appointmentStatusModel.findOne({
+            args: require("../index").AppointmentStatusFields,
+            resolve:async(parent,args, {appointmentStatusModel})=>{
+              return await appointmentStatusModel.findOne(Object.assign(args,{
                 _id: parent.appointment_status_id
-              })}
+              }))
+            }
           },
           get_status_history:{
             type: gql.GraphQLList(
             require("../index").StatusHistoryType), 
-            resolve:async(parent,_,{statusHistoryModel})=>{
-              return await statusHistoryModel.find({
+            args: require("../index").StatusHistoryFields,
+            resolve:async(parent,args,{statusHistoryModel})=>{
+              return await statusHistoryModel.find(Object.assign(args,{
                 appointment_id:parent._id
-              })}
+              }))
+            }
           }
     }, exports.appointmentFields)
 })

@@ -27,6 +27,7 @@ module.exports = new gql.GraphQLObjectType({
         },
         get_patient:{
             type: gql.GraphQLList(types.PatientType),
+            args: types.PatientFields,
             resolve:async(parent, args, {patientModel})=>{
                 return await patientModel.find(args);
             }

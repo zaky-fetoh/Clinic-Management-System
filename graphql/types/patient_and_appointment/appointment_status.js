@@ -17,20 +17,19 @@ exports.appointmentStatusType = new gql.GraphQLObjectType({
     fields:()=>Object.assign({
         get_appointment:{
             type:gql.GraphQLList(
-                require("../index").AppointmentType),
-            resolve:async(parent,_,{appointmentModel})=>{
-                return await appointmentModel.find({
-                    appointment_status_id:parent._id,
-                })
+            require("../index").AppointmentType),
+            args: require("../index").AppointmentFields,
+            resolve:async(parent,args,{appointmentModel})=>{
+                return await appointmentModel.find(Object.assign(args,{
+                    appointment_status_id:parent._id,}))
             }},
         get_status_history:{
             type:gql.GraphQLList(
             require("../index").StatusHistoryType),
-            resolve:async(parent,_,{statusModel})=>{
-                return statusModel.find({
-                    appointment_status_id:parent._id,
-                })
+            args: require("../index").StatusHistoryFields,
+            resolve:async(parent,args,{statusModel})=>{
+                return statusModel.find(Object.assign(args,{
+                    appointment_status_id:parent._id,}))
             }},
-        
     }, this.AppointmentStatusFields)
 })

@@ -2,7 +2,7 @@ const GraphQLObjectId = require("../ObjectIdType");
 const GraphQLDate = require("../DateType");
 const gql = require("graphql");
 
-exports.DocumnetFields ={
+exports.DocumentFields ={
     _id: {
         type: GraphQLObjectId,
     },
@@ -44,5 +44,5 @@ exports.DocumentType = new gql.GraphQLObjectType({
     description: "document Type",
     fields:()=>Object.assign ({
         ///Quary Here
-    },exports.DocumnetFields)
+    },exports.DocumentFields)
 })

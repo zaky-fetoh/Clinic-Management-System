@@ -2,16 +2,19 @@ const GraphQLObjectId = require("../ObjectIdType");
 const gql = require("graphql");
 
 
+exports.AppointmentStatusFields = {
+    _id:{
+        type: GraphQLObjectId,
+    },
+    status_name:{
+        type:gql.GraphQLString, 
+    },
+}
+
 exports.appointmentStatusType = new gql.GraphQLObjectType({
     name:"appointment_status", 
     description:"appointmant-status type of that collection", 
-    fields:()=>({
-        _id:{
-            type: GraphQLObjectId,
-        },
-        status_name:{
-            type:gql.GraphQLString, 
-        },
+    fields:()=>Object.assign({
         get_appointment:{
             type:gql.GraphQLList(
                 require("../index").AppointmentType),
@@ -29,5 +32,5 @@ exports.appointmentStatusType = new gql.GraphQLObjectType({
                 })
             }},
         
-    })
+    }, this.AppointmentStatusFields)
 })

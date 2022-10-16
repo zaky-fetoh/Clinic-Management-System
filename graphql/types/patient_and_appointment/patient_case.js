@@ -34,19 +34,20 @@ exports.PatientCaseType = new gql.GraphQLObjectType({
           ///////////
           get_patient:{
             type: require('../index').PatientType,
-            resolve: async(parent,_,{patientModel})=>{ 
-              return await patientModel.findOne({
+            args: require("../index").PatientFields,
+            resolve: async(parent,args,{patientModel})=>{ 
+              return await patientModel.findOne(Object.assign(args,{
                 _id: parent.patient_id,
-              })
+              }))
             }
           },
           get_appointment:{
             type:gql.GraphQLList(
-              require("../index").AppointmentType),
-            resolve:async(parent,_,{appointmentModel})=>{
-              return await appointmentModel.find({
-                patient_case_id: parent._id,
-              })
+            require("../index").AppointmentType),
+            args: require("../index").AppointmentFields,
+            resolve:async(parent,args,{appointmentModel})=>{
+              return await appointmentModel.find(Object.assign(args,{
+                patient_case_id: parent._id,}))
             }
           },
     }, exports.PatientCaseFields)

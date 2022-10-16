@@ -15,6 +15,18 @@ module.exports = new gql.GraphQLObjectType({
             resolve:async(parent, _, {employeeModel})=>{
                 return await employeeModel.find({});
             }
-        }
+        },
+        get_all_roles:{
+            type:gql.GraphQLList(types.RoleType),
+            resolve:async(parent,_,{roleModel})=>{
+                return await roleModel.find({});
+            }
+        },
+        get_all_patient:{
+            type: gql.GraphQLList(types.PatientType),
+            resolve:async(parent,_, {patientModel})=>{
+                return await patientModel.find({});
+            }
+        },
     }
 })

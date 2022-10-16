@@ -1,13 +1,8 @@
 const GraphQLObjectId = require("../ObjectIdType");
 const gql = require("graphql")
 
-
-
-exports.EmployeeType = new gql.GraphQLObjectType({
-    name: "employee",
-    description: "employee collection Type",
-    fields: ()=>({
-        _id: {
+exports.EmployeeFields ={
+    _id: {
         type: GraphQLObjectId,
         },
         first_name: {
@@ -34,6 +29,12 @@ exports.EmployeeType = new gql.GraphQLObjectType({
         is_active: {
             type: gql.GraphQLBoolean,
         },
+}
+
+exports.EmployeeType = new gql.GraphQLObjectType({
+    name: "employee",
+    description: "employee collection Type",
+    fields: ()=>Object.assign({
         //Queries
         get_indepartment:{
             type: gql.GraphQLList(
@@ -53,5 +54,5 @@ exports.EmployeeType = new gql.GraphQLObjectType({
                 });
             },
         },
-    }),
+    }, exports.EmployeeFields),
 })

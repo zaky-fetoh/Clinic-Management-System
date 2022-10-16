@@ -2,19 +2,24 @@ const GraphQLObjectId = require("../ObjectIdType");
 const gql = require("graphql");
 
 
+exports.DepartmentFields = {
+    _id: {
+        type: GraphQLObjectId,
+    },
+    department_name: {
+        type: gql.GraphQLString,
+    },
+    clinic_id: {
+        type: GraphQLObjectId,
+    },
+}
+
+
 exports.DepartmentType = new gql.GraphQLObjectType({
     description: "department collection type",
     name: "department",
-    fields: () => ({
-        _id: {
-            type: GraphQLObjectId,
-        },
-        department_name: {
-            type: gql.GraphQLString,
-        },
-        clinic_id: {
-            type: GraphQLObjectId,
-        },
+    fields: () => Object.assign({
+
         ///Queries
         get_clinic: {
             type: require("../index").ClinicType,
@@ -60,5 +65,5 @@ exports.DepartmentType = new gql.GraphQLObjectType({
                 else [null];
             },
         }
-    })
+    }, exports.DepartmentFields)
 })

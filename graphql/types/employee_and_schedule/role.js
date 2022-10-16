@@ -18,10 +18,10 @@ exports.RoleType = new gql.GraphQLObjectType({
         get_hasRole:{
             type: gql.GraphQLList(
             require("../index").HasRoleType),
-            resolve:async(parent,_, {hasRoleModel})=>{
-                return await hasRoleModel.find({
-                    role_id: parent._id,
-                })
+            args: require("../index").HasRoleFields,
+            resolve:async(parent,args, {hasRoleModel})=>{
+                return await hasRoleModel.find(Object.assign(args,{
+                    role_id: parent._id,}))
             }
         }
     },exports.RoleFields)

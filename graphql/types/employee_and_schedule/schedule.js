@@ -3,11 +3,8 @@ const gql = require("graphql");
 const GraphQLDate = require("../DateType");
 const GraphQLObjectId = require("../ObjectIdType");
 
-exports.ScheduleType = new gql.GraphQLObjectType({
-    name: "schedule",
-    description: "schedule collection gqltype",
-    fields: ()=>({
-        _id: {
+exports.ScheduleFields = {
+    _id: {
         type:GraphQLObjectId,
         },
         in_department_id: {
@@ -22,6 +19,12 @@ exports.ScheduleType = new gql.GraphQLObjectType({
         time_end: {
             type: GraphQLDate,
         },
+}
+
+exports.ScheduleType = new gql.GraphQLObjectType({
+    name: "schedule",
+    description: "schedule collection gqltype",
+    fields: ()=>Object.assign({
         get_indepartment:{
             type: require("../index").IndepartmentType,
             resolve: async(parent,_,{indepartmentModel})=>{
@@ -30,5 +33,5 @@ exports.ScheduleType = new gql.GraphQLObjectType({
                 })
             }
         }
-    })
+    },exports.ScheduleFields)
 });

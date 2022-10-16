@@ -2,30 +2,32 @@ const gql = require("graphql")
 const GraphQLDate = require("../DateType");
 const GraphQLObjectId = require("../ObjectIdType");
 
+exports.indepartmentFields = {
+    _id: {
+        type: GraphQLObjectId,
+    },
+    department_id: {
+        type: GraphQLObjectId,
+    },
+    employee_id: {
+        type: GraphQLObjectId,
+    },
+    time_from: {
+        type: GraphQLDate,
+    },
+    time_to: {
+        type: GraphQLDate,
+    },
+    is_active: {
+        type: gql.GraphQLBoolean,
+    },
+}
+
 
 exports.indepartmentType = new gql.GraphQLObjectType({
     name: "indepartmentType",
     description: "indepartment graphqltype",
-    fields: ()=>({
-        _id: {
-            type: GraphQLObjectId,
-        },
-        department_id: {
-            type: GraphQLObjectId,
-        },
-        employee_id: {
-            type: GraphQLObjectId,
-        },
-        time_from: {
-            type: GraphQLDate,
-        },
-        time_to: {
-            type: GraphQLDate,
-        },
-        is_active: {
-            type: gql.GraphQLBoolean,
-        },
-        ////
+    fields: ()=>Object.assign({
         get_department:{
             type: require("../index").DepartmentType,
             resolve:async(parent,_,{departmentModel})=>{
@@ -61,5 +63,5 @@ exports.indepartmentType = new gql.GraphQLObjectType({
                 })
             },
         }
-    })
+    }, exports.indepartmentFields)
 });

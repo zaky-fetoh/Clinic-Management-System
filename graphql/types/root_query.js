@@ -28,5 +28,11 @@ module.exports = new gql.GraphQLObjectType({
                 return await patientModel.find({});
             }
         },
+        get_all_appointment:{
+            type:gql.GraphQLList(types.AppointmentType),
+            resolve:async(parent, _, {appointmentModel})=>{
+                return await appointmentModel.find({}); 
+            }
+        },
     }
 })

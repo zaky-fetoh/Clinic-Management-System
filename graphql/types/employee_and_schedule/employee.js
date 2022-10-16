@@ -39,19 +39,19 @@ exports.EmployeeType = new gql.GraphQLObjectType({
         get_indepartment:{
             type: gql.GraphQLList(
             require("../index").IndepartmentType),
-            resolve:async(parent,_,{indepartmentModel})=>{
-                return await indepartmentModel.find({
-                    employee_id: parent._id,
-                })
+            args: require("../index").IndepartmentFields,
+            resolve:async(parent, args,{indepartmentModel})=>{
+                return await indepartmentModel.find(Object.assign(args, {
+                    employee_id: parent._id,}))
             },
         },
         get_hasRole:{
             type:gql.GraphQLList(
             require("../index").HasRoleType),
-            resolve:async(parent,_,{hasRoleModel})=>{
-                return await hasRoleModel.find({
-                    employee_id:parent._id,
-                });
+            args: require("../index").HasRoleFields,
+            resolve:async(parent,args ,{hasRoleModel})=>{
+                return await hasRoleModel.find(Object.assign(args,{
+                    employee_id:parent._id,}));
             },
         },
     }, exports.EmployeeFields),

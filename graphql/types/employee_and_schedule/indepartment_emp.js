@@ -30,37 +30,37 @@ exports.indepartmentType = new gql.GraphQLObjectType({
     fields: ()=>Object.assign({
         get_department:{
             type: require("../index").DepartmentType,
-            resolve:async(parent,_,{departmentModel})=>{
-                return await departmentModel.findOne({
-                    _id: parent.department_id,
-                });
+            args: require("../index").DepartmentFields,
+            resolve:async(parent,args,{departmentModel})=>{
+                return await departmentModel.findOne(Object.assign(args,{
+                    _id: parent.department_id,}));
             }
         },
 
         get_employee:{
             type: require("../index").EmployeeType,
-            resolve:async(parent,_, {employeeModel})=>{
-                return await employeeModel.findOne({
-                    _id: parent.employee_id,
-                })
+            args: require("../index").EmployeeFields,
+            resolve:async(parent, args, {employeeModel})=>{
+                return await employeeModel.findOne(Object.assign(args,{
+                    _id: parent.employee_id,}))
             }
         },
         get_schedule:{
             type: gql.GraphQLList(
             require("../index").ScheduleType),
-            resolve:async(parent, _,{scheduleModel})=>{
-                return await scheduleModel.find({
-                    in_department_id: parent._id,
-                })
+            args: require("../index").ScheduleFields,
+            resolve:async(parent, args,{scheduleModel})=>{
+                return await scheduleModel.find(Object.assign(args,{
+                    in_department_id: parent._id,}));
             }
         },
         get_appointment:{
             type: gql.GraphQLList(
             require("../index").AppointmentType),
-            resolve:async(parent,_, {appointmentModel})=>{
-                return await appointmentModel.find({
-                    in_department_id: parent._id,
-                })
+            args: require("../index").AppointmentFields,
+            resolve:async(parent,args, {appointmentModel})=>{
+                return await appointmentModel.find(Object.assign(args,{
+                    in_department_id: parent._id,}))
             },
         }
     }, exports.indepartmentFields)

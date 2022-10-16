@@ -31,19 +31,19 @@ exports.HasRoleType = new gql.GraphQLObjectType({
     fields: () => Object.assign({
         get_employee: {
             type: require("../index").EmployeeType,
-            resolve: async (parent, _, { employeeModel }) => {
-                return await employeeModel.findOne({
-                    _id: parent.employee_id,
-                })
+            args: require("../index").EmployeeFields,
+            resolve: async (parent, args, { employeeModel }) => {
+                return await employeeModel.findOne(Object.assign(args,{
+                    _id: parent.employee_id,}))
             }
         },
 
         get_role: {
             type: require("../index").RoleType,
-            resolve: async (parent, _, { roleModel }) => {
-                return await roleModel.findOne({
-                    _id: parent.role_id,
-                })
+            args: require("../index").RoleFields,
+            resolve: async (parent, args, { roleModel }) => {
+                return await roleModel.findOne(Object.assign(args,{
+                    _id: parent.role_id,}))
             },
         },
     }, exports.HasRoleFields)

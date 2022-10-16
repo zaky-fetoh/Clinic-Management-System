@@ -19,7 +19,7 @@ exports.ClinicType = new gql.GraphQLObjectType({
             type: gql.GraphQLString,
         },
         ///Queries
-        getDepartments:{
+        get_departments:{
             type: gql.GraphQLList(
             require("../index").DepartmentType
             ),

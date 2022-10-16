@@ -44,7 +44,7 @@ exports.EmployeeType = new gql.GraphQLObjectType({
                 })
             },
         },
-        get_HasRole:{
+        get_hasRole:{
             type:gql.GraphQLList(
             require("../index").HasRoleType),
             resolve:async(parent,_,{hasRoleModel})=>{

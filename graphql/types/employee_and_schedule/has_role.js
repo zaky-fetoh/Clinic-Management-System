@@ -42,6 +42,5 @@ exports.HasRoleType = new gql.GraphQLObjectType({
                 })
             },
         },
-
     })
 })

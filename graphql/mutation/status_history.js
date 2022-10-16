@@ -9,7 +9,7 @@ const {
 
 const sthistArgs = {
     appointment_id: {
-        type: GraphQLObjectId,
+    type: GraphQLObjectId,
     },
     appointment_status_id: {
     type: GraphQLObjectId,

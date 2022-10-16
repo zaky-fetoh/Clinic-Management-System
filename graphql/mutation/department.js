@@ -5,10 +5,10 @@ const {DepartmentType,
 
 const departArgs= {
     clinic_id:{
-    type:gql.GraphQLNonNull(GraphQLObjectId),
+    type:GraphQLObjectId,
     },
     department_name:{
-        type:gql.GraphQLNonNull(gql.GraphQLString),
+    type:gql.GraphQLString,
     },
 }
 
@@ -30,8 +30,7 @@ module.exports = new gql.GraphQLObjectType({
             }, departArgs),
             resolve:async(parent, args,{departmentModel})=>{
                 const dept = await departmentModel.findOne({
-                    _id: args._id,
-                  }, { __v: 0 });
+                    _id: args._id,}, { __v: 0 });
                   for (const att in dept._doc) {
                     if (att !== "_id" && args[att]) dept[att] = args[att];
                   }

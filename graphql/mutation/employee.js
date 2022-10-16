@@ -51,7 +51,7 @@ module.exports = new gql.GraphQLObjectType({
             resolve: async (parent, args, { employeeModel }) => {
                 const emp = await employeeModel.findOne({
                     _id: args._id,
-                }, { __v: 0, password: 0});
+                }, { __v: 0}); 
                 for (const att in emp._doc)
                     if (att !== "_id" && args[att])
                         emp[att] = args[att];

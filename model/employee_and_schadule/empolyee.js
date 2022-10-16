@@ -58,9 +58,16 @@ const joiSchema = joi.object({
 employeeSchema.pre("save", async function (next) {
   const { error } = joiSchema.validate(this._doc);
   if (error) throw error;
-  console.log(this.password);
+  const DBPass = await module.exports.findOne(
+    {_id: this._id,}, {password:1});
+  //this if check protects when excuting an update function 
+  //not to hash a hashed password simply
+  //if this recored exists in the database check the password changes
+  //then encrypt the new password
+  //if the record does not exists in the database then encrypt 
+  //that password
+  if(!DBPass || DBPass && this.password !== DBPass.password)
   this.password = await bcrypt.hash(this.password, 12);
-  console.log(this.password);
   next();
 });
 

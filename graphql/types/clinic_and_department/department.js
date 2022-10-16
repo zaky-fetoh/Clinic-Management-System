@@ -16,7 +16,7 @@ exports.DepartmentType = new gql.GraphQLObjectType({
             type: GraphQLObjectId,
         },
         ///Queries
-        getClinic: {
+        get_clinic: {
             type: require("../index").ClinicType,
             resolve: async (parent,_, {clinicModel}) => {
                 return await clinicModel.findOne({
@@ -34,7 +34,7 @@ exports.DepartmentType = new gql.GraphQLObjectType({
                 });
             }
         },
-        getEmployees: {
+        ge_employees: {
             type: gql.GraphQLList(require("../index").EmployeeType),
             resolve: async (parent,_, {departmentModel}) => {
                 const pipeline = [
@@ -56,7 +56,8 @@ exports.DepartmentType = new gql.GraphQLObjectType({
                     employees: {$push: "$indepartments.employees"},
                     }}]
                 const out = await departmentModel.aggregate(pipeline)
-                return out[0].employees;
+                if(out[0].employees)return out[0].employees;
+                else [null];
             },
         }
     })

@@ -4,7 +4,7 @@ const gql = require("graphql");
 
 exports.DocumentFields ={
     _id: {
-        type: GraphQLObjectId,
+    type: GraphQLObjectId,
     },
     internal_document_id: {
         type: gql.GraphQLString,

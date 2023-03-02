@@ -3,7 +3,7 @@ const gql = require("graphql");
 
 exports.DocumentTypeFields = {
     _id: {
-        type: GraphQLObjectId,
+    type: GraphQLObjectId,
     },
     decument_name: {
         type: gql.GraphQLString,
